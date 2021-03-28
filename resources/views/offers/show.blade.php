@@ -29,7 +29,7 @@
             </div>
             @if(Auth::user()->right->SFx27 && Auth::user()->right->SFx28)
                 <a type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" href ="{{ route('offers.apply', $offer->id, $offer->name) }}">{{ __('Apply') }}</a><br> 
-                <form action="{{ route('offers.add') }}" method="POST">
+                <form action="{{ route('offers.addWish') }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $offer->id }}" name="id">
                     <input type="submit" class="btn btn-dark mt-5 w-25 h-50" style="white-space:normal" value="{{ __('Add to wish-list') }}">

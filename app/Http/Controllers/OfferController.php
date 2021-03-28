@@ -81,7 +81,7 @@ class OfferController extends Controller
         return view('offers/apply', compact('offer'));
     }
 
-    public function add(Request $request) 
+    public function addWish(Request $request) 
     {
         DB::table('offer_user')->insert([
             'status' => 'W',
@@ -89,6 +89,12 @@ class OfferController extends Controller
             'user_id' => Auth::user()->id,
         ]);
         return redirect()->route('offers.index')->with('info', __('Offer have been added to your wish-list'));
+    }
+
+    public function removeWish(Request $request) 
+    {
+        DB::table('offer_user')->where('user_id', Auth::user()->id)->where('offer_id', $request->get('id'))->where('status', 'W')->delete();
+        return redirect()->route('offers.wishlist')->with('info', __('Offer have been remove from your wish-list'));
     }
     /**
      * Show the form for creating a new resource.
@@ -108,8 +114,9 @@ class OfferController extends Controller
     public function store(OfferRequest $offerRequest)
     {
         $offer = Offer::create($offerRequest->all());
-        $offer->promotions()->attach($offerRequest->promo);
-        return redirect()->route('offers.index')->with('info', 'La offre a bien été créée');
+        $offer->skills()->attach($offerRequest->skis);
+        $offer->promotions()->attach($offerRequest->promos);
+        return redirect()->route('offers.index')->with('info', __('The offer have been created'));
     }
     /**
      * Display the specified resource.
@@ -142,7 +149,8 @@ class OfferController extends Controller
     public function update(OfferRequest $offerRequest, Offer $offer)
     {
         $offer->update($offerRequest->all());
-        $offer->promotions()->sync($offerRequest->promo);
+        $offer->skills()->sync($offerRequest->skis);
+        $offer->promotions()->sync($offerRequest->promos);
         return redirect()->route('offers.index')->with('info', 'Le offre à bien été modifié');
     }
     /**

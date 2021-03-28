@@ -2,79 +2,94 @@
 
 @section('content')
 
-	<div class="card  w-75 text-center  mx-auto mt-3">
-        <div class="card-header text-center">
-            <h5>{{ __('Offer from') }} : {{ $offer->company->name }} {{ __('at') }} {{ $offer->locality->name }} {{ __('on') }} {{ $offer->created_at }}</h5>
-        </div>
-        <div class="card-body">
-            <form>
+    <div class="card w-75 text-center mx-auto mt-3">
+        <form action="{{ route('offers.store') }}" method="POST">
+            @csrf
+            <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputTitre">Titre de l'annonce</label>
-                        <input type="text" class="form-control">
+                        <label>{{ __('Company name') }} :</label><br>
+                        <select name="company_id" class="custom-select">
+                            @foreach($companies as $company)
+                                <option value="{{ $company->id }}" {{ in_array($company->id, old('company_id') ? : []) ? 'selected' : '' }}>{{ $company->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputSeat">Nombre de place disponible</label>
-                        <input type="number" class="form-control">
+                        <label>{{ __('Localities') }} :</label><br>
+                        <select name="locality_id" class="custom-select">
+                            @foreach($localities as $locality)
+                                <option value="{{ $locality->id }}" {{ in_array($locality->id, old('company_id') ? : []) ? 'selected' : '' }}>{{ $locality->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputDuree">Durée du stage </label>
+                        <label>{{ __('Offer name') }}</label>
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>{{ __('Seat') }}</label>
+                        <input type="number" class="form-control" min="1" max="100" name="seat" value="{{ old('seat') }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>{{ __('Internship duration') }}</label>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <div class="row">
-                                    <div class="col-sm-2 text-right" ><p>Du</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" id="inputDuree" ></div>
+                                    <div class="col-sm-2 text-right" ><p>{{ __('from') }}</p></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="start" value="{{ old('start') }}"></div>
                                 </div>                                                                
                             </div>
                             <div class="form-group col-md-6">
-                            <div class="row">
-                                    <div class="col-sm-2 text-right "><p>Au</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" id="inputDuree" ></div>
+                                <div class="row">
+                                    <div class="col-sm-2 text-right "><p>{{ __('to') }}</p></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-05-01" name="end" value="{{ old('end') }}"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputSkills">Compétences requises </label>
-                        <input type="text" class="form-control" id="inputSkills" >
+                        <label>{{ __('Skills required') }}</label><br>
+                        <select name="skis[]" class="custom-select" multiple>
+                            @foreach($skills as $skill)
+                                <option value="{{ $skill->id }}" {{ in_array($skill->id, old('skis') ? : []) ? 'selected' : '' }}>{{ $skill->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputPromotion">Promotion visée</label>
-                        <select class="custom-select " id="selectAvancement">
-                            <option selected>Choose...</option>
-                            <option value="1">1ère année</option>
-                            <option value="2">2ème année</option>
-                            <option value="3">3ème année</option>
-                            <option value="3">4ème année</option>
-                            <option value="3">5ème année</option>
-                        </select>
+                        <label>{{ __('Targeted promotion') }}</label><br>
+                        <select name="promos[]" class="custom-select" multiple>
+                            @foreach($promotions as $promotion)
+                                <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promos') ? : []) ? 'selected' : '' }}>{{ $promotion->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputRemuneration">Base de rémunération (/h) </label>
-                        <input type="number" step="0.01" class="form-control" id="inputRemuneration" >
+                        <label>{{ __('Wage') }} (/h)</label>
+                        <input type="number" step="0.01" min="3.90" max="99.99" class="form-control" name="wage" value="{{ old('wage') }}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="description">Description de l'annonce</label>
-                        <textarea class="form-control" id="description" rows="3"></textarea>
+                        <label>{{ __('Offer description') }}</label>
+                        <textarea class="form-control" rows="3" name="comment">{{ old('comment') }}</textarea>
                     </div>
                     <div class="form-group col-md-6 text-center">
-                        <button type="button" class="btn btn-dark mt-5 w-25 h-50" id="valider">Valider</button>
+                        <input type="submit" class="btn btn-success mt-5 w-25 h-50" value="{{ __('Create') }}">
                     </div>
-                    
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-
-
 
     <script>
         document.getElementById("Aujourdhui").valueAsDate = new Date();
     </script>
+
 @endsection

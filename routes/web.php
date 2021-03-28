@@ -28,20 +28,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::get('center/{slug}/students', [StudentController::class, 'index'])->name('students.center');
     Route::get('promotion/{slug}/students', [StudentController::class, 'index'])->name('students.promotion');
-    Route::get('search/students', [StudentController::class, 'search'])->name('students.search');
+    Route::post('search/students', [StudentController::class, 'search'])->name('students.search');
 
     Route::resource('delegates', DelegateController::class);
     Route::get('center/{slug}/delegates', [DelegateController::class, 'index'])->name('delegates.center');
     Route::get('promotion/{slug}/delegates', [DelegateController::class, 'index'])->name('delegates.promotion');
-    Route::get('search/delegates', [DelegateController::class, 'search'])->name('delegates.search');
+    Route::post('search/delegates', [DelegateController::class, 'search'])->name('delegates.search');
 
     Route::resource('tutors', TutorController::class);
     Route::get('center/{slug}/tutors', [TutorController::class, 'index'])->name('tutors.center');
     Route::get('promotion/{slug}/tutors', [TutorController::class, 'index'])->name('tutors.promotion');
-    Route::get('search/tutors', [TutorController::class, 'search'])->name('tutors.search');
+    Route::post('search/tutors', [TutorController::class, 'search'])->name('tutors.search');
 
     Route::resource('offers', OfferController::class);
-    Route::post('add/offers', [OfferController::class, 'add'])->name('offers.add');
+    Route::post('addWish/offers', [OfferController::class, 'addWish'])->name('offers.addWish');
+    Route::post('removeWish/offers', [OfferController::class, 'removeWish'])->name('offers.removeWish');
     Route::get('locality/{slug}/offers', [OfferController::class, 'index'])->name('offers.locality');
     Route::get('promotion/{slug}/offers', [OfferController::class, 'index'])->name('offers.promotion');
     Route::get('skill/{slug}/offers', [OfferController::class, 'index'])->name('offers.skill');
@@ -49,8 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('apply/{slug}/offers', [OfferController::class, 'apply'])->name('offers.apply');
     Route::get('wishlist', [OfferController::class, 'wishlist'])->name('offers.wishlist');
     Route::get('query', [OfferController::class, 'query'])->name('offers.query');
-    Route::get('search/offers', [OfferController::class, 'search'])->name('offers.search');
+    Route::post('search/offers', [OfferController::class, 'search'])->name('offers.search');
 
     Route::resource('companies', CompanyController::class);
-    Route::get('search/companies', [CompanyController::class, 'search'])->name('companies.search');
+    Route::post('search/companies', [CompanyController::class, 'search'])->name('companies.search');
 });

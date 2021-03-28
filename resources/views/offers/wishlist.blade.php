@@ -2,6 +2,11 @@
 
 @section('content')
 
+    @if(session()->has('info')) 
+        <div class="notification is-success">
+            {{ session('info') }}
+        </div>
+    @endif
     @foreach($offers as $offer)
     <div class="card w-75 mx-auto mt-3 mb-3">        
         <div class="card-body" >
@@ -13,7 +18,11 @@
                     </div>
                     <div class="col text-right">
                         <a type="button" class="btn btn-success"  href ="{{ route('offers.show', $offer->id) }}">{{ __('See') }}</a>
-                        <button type="button" class="btn btn-danger">{{ __('Remove') }}</button>
+                        <form action="{{ route('offers.removeWish') }}" method="POST">
+                            @csrf
+                            <input type="hidden" value="{{ $offer->id }}" name="id">
+                            <input type="submit" class="btn btn-danger" value="{{ __('Remove') }}">
+                        </form>
                     </div>
                 </div>
             </div>
