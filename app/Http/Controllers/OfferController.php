@@ -9,6 +9,7 @@ use App\Models\{
     Promotion,
     Company,
     User,
+    Skill,
 };
 use App\Http\Requests\OfferRequest;
 use Illuminate\Support\Facades\{
@@ -32,8 +33,10 @@ class OfferController extends Controller
                 $model = new Locality;
             } elseif (Route::currentRouteName() == 'offers.promotion') {
                 $model = new Promotion;
-            } else {
+            } elseif (Route::currentRouteName() == 'offers.company') {
                 $model = new Company;
+            } else {
+                $model = new Skill;
             }
         }
         $query = $model ? $model::whereSlug($slug)->firstOrFail()->offers() : Offer::query();
@@ -59,7 +62,18 @@ class OfferController extends Controller
 
     public function search(Request $request, $slug = null) 
     {
-
+        try {
+            $offers = Offer::query()
+                ->where(\DB::raw('TIMEDIFF(offers.end, offers.start)'), '>=', $request->get('duration'))
+                ->where('wage', '>=', $request->get('wage'))
+                ->where('created_at', '>=', $request->get('created_at'))
+                ->where('seat', '>=', $request->get('seat'))
+                ->oldest('name')->paginate(10);
+        } 
+        catch (\InvalidArgumentException $e) {
+            $offers = Offer::query()->oldest('name')->paginate(10);
+        }
+        return view('offers/index', compact('offers', 'slug'));
     }
     /**
      * Show the form for creating a new resource.

@@ -22,7 +22,7 @@
                         @enderror
 
                         <label>{{ __('Localities') }} :</label><br>
-                        <select name="locas[]" multiple>
+                        <select name="locas[]" class="custom-select" multiple>
                             @foreach($localities as $locality)
                                 <option value="{{ $locality->id }}" {{ in_array($locality->id, old('locas') ?: $company->localities->pluck('id')->all()) ? 'selected' : '' }}>{{ $locality->name }}</option>
                             @endforeach

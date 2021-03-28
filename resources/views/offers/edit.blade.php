@@ -1,76 +1,77 @@
-@extends('appLayout', ['title' => "Modification d'une offre"])
+@extends('appLayout', ['title' => __('Offer modification')])
 
 @section('content')
 
 	<div class="card  w-75 text-center  mx-auto mt-3">
         <div class="card-header text-center">
-            <h5>Offre proposé par : [nom de l'entreprise] à [localité entreprise] le [date de création]</h5>
+            <h5>{{ __('Offer from') }} : {{ $offer->company->name }} {{ __('at') }} {{ $offer->locality->name }} {{ __('on') }} {{ $offer->created_at }}</h5>
         </div>
-        <div class="card-body">
-            <form>
+        <form action="{{ route('offers.update', $offer->id) }}" method="POST">
+            @csrf
+            @method('put')
+            <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Titre de l'annonce</label>
-                        <input type="text" class="form-control" value="[Titre de l'annonce]" >
+                        <label>{{ __('Offer name') }}</label>
+                        <input type="text" class="form-control" name="name" value="{{ old('name', $offer->name) }}">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Nombre de place disponible </label>
-                        <input type="number" class="form-control" value="1" >
+                        <label>{{ __('Seat available') }}</label>
+                        <input type="number" class="form-control" min="1" name="seat" value="{{ old('seat', $offer->seat) }}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Durée du stage </label>
+                        <label>{{ __('Internship duration') }}</label>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <div class="row">
-                                    <div class="col-sm-2 text-right" ><p>Du</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" value="2001-01-02" ></div>
+                                    <div class="col-sm-2 text-right" ><p>{{ __('from') }}</p></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="start" value="{{ old('start', $offer->start) }}"></div>
                                 </div>                                                                
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="row">
-                                    <div class="col-sm-2 text-right "><p>Au</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" value="2021-01-02"></div>
+                                    <div class="col-sm-2 text-right "><p>{{ __('to') }}</p></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="end" value="{{ old('end', $offer->end) }}"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Compétences requises </label>
-                        <input type="text" class="form-control" value="[Compétences requises]" >
+                        <label>{{ __('Skills required') }}</label><br>
+                        <select name="skis[]" class="custom-select" multiple>
+                            @foreach($skills as $skill)
+                                <option value="{{ $skill->id }}" {{ in_array($skill->id, old('skis') ?: $offer->skills->pluck('id')->all()) ? 'selected' : '' }}>{{ $skill->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Promotion visée</label>
-                        <select class="custom-select " id="selectAvancement">
-                            <option selected>Choose...</option>
-                            <!--foreach pour afficher les promos-->
-                            <option value="1">1ère année</option>
-                            <option value="2">2ème année</option>
-                            <option value="3">3ème année</option>
-                            <option value="3">4ème année</option>
-                            <option value="3">5ème année</option>
-                        </select>
+                        <label>{{ __('Targeted promotion') }}</label><br>
+                        <select name="promos[]" class="custom-select" multiple>
+                            @foreach($promotions as $promotion)
+                                <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promos') ?: $offer->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
+                            @endforeach
+                        </select><br>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Base de rémunération (/h) </label>
-                        <input type="number" step="0.01" class="form-control" value="1" >
+                        <label>{{ __('Wage') }} (/h) </label>
+                        <input type="number" step="0.01" min="3.90" max="99.99" class="form-control" name="wage" value="{{ old('wage', $offer->wage) }}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Description de l'annonce</label>
-                        <textarea class="form-control" rows="3">[Description de l'offre]</textarea>
+                        <label>{{ __('Offer description') }}</label>
+                        <textarea class="form-control" rows="3" name="comment">{{ old('comment', $offer->comment) }}</textarea>
                     </div>
                     <div class="form-group col-md-6 text-center">
-                        <button type="button" class="btn btn-warning mt-5 w-25 h-50">Modifier</button>
+                        <input type="submit" class="btn btn-warning mt-5 w-25 h-50" value="{{ __('Modify') }}">
                     </div>
-                    
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
 @endsection

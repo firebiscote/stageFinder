@@ -15,14 +15,14 @@
                     <input type="text" class="form-control w-50 mx-auto" value="[Prénom]">
                     
                     <label>{{ __('Center') }} :</label>
-                    <select name="cent[]">
+                    <select name="cent[]" class="custom-select">
                         @foreach($centers as $center)
                             <option value="{{ $center->id }}" {{ in_array($center->id, old('cent') ?: $student->centers->pluck('id')->all()) ? 'selected' : '' }}>{{ $center->name }}</option>
                         @endforeach
                     </select>
                     
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promo[]">
+                    <select name="promo[]" class="custom-select">
                         @foreach($promotions as $promotion)
                             <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promo') ?: $student->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
                         @endforeach

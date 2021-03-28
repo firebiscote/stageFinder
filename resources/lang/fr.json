@@ -644,6 +644,7 @@
     "Tutor modification": "Modification d'un pilote",
     "Delegate modification": "Modification d'un délégué",
     "Company modification": "Modification d'une entreprise",
+    "Offer modification": "Modification d'une offre",
     "Create a new student": "Créer un nouvel étudiant",
     "Create a new tutor": "Créer un nouveau pilote",
     "Create a new delegate": "Créer un nouveau délégué",
@@ -687,6 +688,13 @@
     "Targeted promotion": "Promotions visées",
     "Offer description": "Description de l'offre",
     "Apply": "Postuler",
-    "Add to wish-list": "Ajouter à ma liste de voeux"
+    "Add to wish-list": "Ajouter à ma liste de voeux",
+    "week": "semaine",
+    "Offer from": "Offre proposé par",
+    "at": "à",
+    "on": "le", 
+    "Offer name": "Nom de l'offre",
+    "Seat available": "Place disponible",
+    "Skills required": "Compétences requises"
 
 }

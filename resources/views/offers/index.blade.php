@@ -43,17 +43,17 @@
 
                     <form action="{{ route('offers.search') }}" method="GET">
                         @csrf
-                        <p class="text-left mt-2">{{ __('Internship duration') }} :</p>
-                        <input type="search" class="form-control" name="duration">
+                        <p class="text-left mt-2">{{ __('Internship duration') }} <br>(/{{ __('week') }}) :</p>
+                        <input type="number" class="form-control" min="8" max="25" value="8" name="duration">
 
-                        <p class="text-left mt-2">{{ __('Wage') }}(/h) :</p>
-                        <input type="number" class="form-control" step="0.01" name="wage">
+                        <p class="text-left mt-2">{{ __('Wage') }} (/h) :</p>
+                        <input type="number" class="form-control" step="0.01" min="3.90" max="99.99" value="3.90" name="wage">
 
                         <p class="text-left mt-2">{{ __('Offer date') }} :</p>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" min="2021-03-01" value="2021-03-01" name="created_at">
 
                         <p class="text-left mt-2">{{ __('Seat') }} :</p>
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" min="1" max="128" value="1" name="seat">
 
                         <input type="submit" class="btn btn-dark mt-4 w-100" value="{{ __('Search') }}">
                     </form>
