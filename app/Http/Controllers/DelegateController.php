@@ -34,20 +34,20 @@ class DelegateController extends Controller
             } 
         }
         $query = $model ? $model::whereSlug($slug)->firstOrFail()->users() : User::query();
-        $delegates = $query->withTrashed()->where('role', 'D')->oldest('name')->paginate(5);
+        $delegates = $query->withTrashed()->where('role', 'D')->oldest('name')->paginate(10);
         return view('delegates/index', compact('delegates', 'slug'));
     }
 
     public function search(Request $request, $slug = null) 
     {
         if ($request->get('name') == '' && $request->get('firstName') == '') {
-            $delegates = User::query()->withTrashed()->where('role', 'S')->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'D')->oldest('name')->paginate(10);
         } elseif ($request->get('name') != '' && $request->get('firstName') == '') {
-            $delegates = User::query()->withTrashed()->where('role', 'S')->where('name', $request->get('name'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'D')->where('name', $request->get('name'))->oldest('name')->paginate(10);
         } elseif ($request->get('name') == '' && $request->get('firstName') != '') {
-            $delegates = User::query()->withTrashed()->where('role', 'S')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'D')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(10);
         } else {
-            $delegates = User::query()->withTrashed()->where('role', 'S')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'D')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(10);
         }
         return view('delegates/index', compact('delegates', 'slug'));
     }
@@ -68,12 +68,12 @@ class DelegateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $userRequest)
+    public function store(UserRequest $delegateRequest)
     {
-        $delegate = User::create($userRequest->all());
+        $delegate = User::create($delegateRequest->all());
         $delegate->role = 'S';
-        $delegate->promotions()->attach($userRequest->promotion_id);
-        $delegate->centers()->attach($userRequest->center_id);
+        $delegate->promotions()->attach($delegateRequest->promotion_id);
+        $delegate->centers()->attach($delegateRequest->center_id);
         return redirect()->route('delegates.index')->with('info', __('The delegate have been created'));
     }
     /**
@@ -106,11 +106,11 @@ class DelegateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(userRequest $userRequest, user $user)
+    public function update(UserRequest $delegateRequest, User $delegate)
     {
-        $user->update($userRequest->all());
-        $user->promotions()->sync($userRequest->promo);
-        return redirect()->route('delegates.index')->with('info', 'Le offre à bien été modifié');
+        $delegate->update($delegateRequest->all());
+        $delegate->promotions()->sync($delegateRequest->promo);
+        return redirect()->route('delegates.index')->with('info', __('The delegate have been modified'));
     }
     /**
      * Remove the specified resource from storage.
@@ -127,13 +127,13 @@ class DelegateController extends Controller
 
     public function forceDestroy($id)
     {
-        user::whereId($id)->firstOrFail()->forceDelete();
+        User::whereId($id)->firstOrFail()->forceDelete();
         return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
     }
 
     public function restore($id)
     {
-        user::whereId($id)->firstOrFail()->restore();
+        User::whereId($id)->firstOrFail()->restore();
         return back()->with('info', 'La offre a bien été restauré.');
     }
 }

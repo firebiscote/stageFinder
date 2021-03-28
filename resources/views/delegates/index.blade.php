@@ -52,7 +52,7 @@
                 <div class="col text-right mt-4">
                     <a type="button" class="btn btn-dark w-25" href ="{{ route('delegates.show', $delegate->id) }}">{{ __('See') }}</a>
                     @if(Auth::user()->right->SFx19)	
-                        <a type="button" class="btn btn-warning w-25" href ="{{ url('/delegates/modify') }}">{{ __('Modify') }}</a>
+                        <a type="button" class="btn btn-warning w-25" href ="{{ route('delegates.edit', $delegate->id) }}">{{ __('Modify') }}</a>
                     @endif
                     @if(Auth::user()->right->SFx20)
                         <form action="{{ route('delegates.destroy', $delegate->id) }}" method="POST">

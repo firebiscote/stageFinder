@@ -1,4 +1,4 @@
-@extends('appLayout', ['title' => "Modification d'un étudiant"])
+@extends('appLayout', ['title' => __('Tutor modification')])
 
 @section('content')
 
@@ -10,16 +10,24 @@
                 <div class="col">
                     <label>{{ __('Name') }} :</label>
                     <input type="text" class="form-control w-50 mx-auto" name="name" value="{{ old('name', $tutor->name) }}">
+                    @error('name')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+
                     <label>{{ __('Firstname') }} :</label>
                     <input type="text" class="form-control w-50 mx-auto" name="firstName" value="{{ old('firstName', $tutor->firstName) }}">
+                    @error('firstName')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+
                     <label>{{ __('Center') }} :</label><br>
-                    <select name="center_id" class="custom-select">
+                    <select name="center_id" class="custom-select w-50">
                         @foreach($centers as $center)
                             <option value="{{ $center->id }}" {{ ($center->id == old('center_id') ? : $tutor->center->id) ? 'selected' : '' }}>{{ $center->name }}</option>
                         @endforeach
-                    </select>
+                    </select><br>
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promos[]" class="custom-select" multiple>
+                    <select name="promos[]" class="custom-select w-50" multiple>
                         @foreach($promotions as $promotion)
                             <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promos') ? : $tutor->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
                         @endforeach
@@ -28,14 +36,23 @@
                 <div class="col">
                     <label>{{ __('Email') }} :</label>
                     <input type="email" class="form-control w-50 mx-auto" name="email" value="{{ old('email', $tutor->email) }}">
+                    @error('email')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
                     
                     <label>{{ __('Password') }} :</label>
                     <input type="password" class="form-control w-50 mx-auto" name="password">
+                    @error('password')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
                     
                     <label>{{ __('Confirm password') }} :</label>
-                    <input type="password" class="form-control w-50 mx-auto" name="confirmPassword">      
+                    <input type="password" class="form-control w-50 mx-auto" name="confirmPassword">
+                    @error('confirmPassword')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror    
                             
-                    <input type="submit" class="btn btn-dark w-25 mt-3" value="{{ __('Modify') }}">
+                    <input type="submit" class="btn btn-warning w-25 mt-3" value="{{ __('Modify') }}">
                 </div>
             </div>
         </form>

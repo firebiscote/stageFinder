@@ -53,5 +53,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('search/offers', [OfferController::class, 'search'])->name('offers.search');
 
     Route::resource('companies', CompanyController::class);
+    Route::get('line/{line}/companies', [OfferController::class, 'index'])->name('companies.line');
     Route::post('search/companies', [CompanyController::class, 'search'])->name('companies.search');
 });

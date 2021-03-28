@@ -28,10 +28,16 @@
                     <div class="form-group col-md-6">
                         <label>{{ __('Offer name') }}</label>
                         <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                        @error('name')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6">
                         <label>{{ __('Seat') }}</label>
                         <input type="number" class="form-control" min="1" max="100" name="seat" value="{{ old('seat') }}">
+                        @error('seat')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-row">
@@ -42,12 +48,18 @@
                                 <div class="row">
                                     <div class="col-sm-2 text-right" ><p>{{ __('from') }}</p></div>
                                     <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="start" value="{{ old('start') }}"></div>
+                                    @error('start')
+                                        <p class="help is-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>                                                                
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-sm-2 text-right "><p>{{ __('to') }}</p></div>
                                     <div class="col-sm-8"><input type="date" class="form-control" min="2021-05-01" name="end" value="{{ old('end') }}"></div>
+                                    @error('end')
+                                        <p class="help is-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -73,12 +85,18 @@
                     <div class="form-group col-md-6">
                         <label>{{ __('Wage') }} (/h)</label>
                         <input type="number" step="0.01" min="3.90" max="99.99" class="form-control" name="wage" value="{{ old('wage') }}">
+                        @error('wage')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>{{ __('Offer description') }}</label>
                         <textarea class="form-control" rows="3" name="comment">{{ old('comment') }}</textarea>
+                            @error('comment')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6 text-center">
                         <input type="submit" class="btn btn-success mt-5 w-25 h-50" value="{{ __('Create') }}">

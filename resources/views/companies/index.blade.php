@@ -26,7 +26,7 @@
                         <input type="number" class="form-control" min="0" value="0" name="trainee">
                         
                         <p class="text-left mt-2">{{ __('Trainee Ratings') }} (/10) :</p>
-                        <input type="number" class="form-control" min="1" max="10" value="1" name="rating">
+                        <input type="number" class="form-control" min="1" max="10" value="1" name="grade">
                         
                         <p class="text-left mt-2">{{ __('Tutor confidence') }} (/10) :</p>
                         <input type="number" class="form-control" min="1" max="10" value="1" name="confidence">

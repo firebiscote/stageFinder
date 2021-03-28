@@ -35,20 +35,20 @@ class TutorController extends Controller
             } 
         }
         $query = $model ? $model::whereSlug($slug)->firstOrFail()->users() : User::query();
-        $tutors = $query->withTrashed()->where('role', 'T')->oldest('name')->paginate(5);
+        $tutors = $query->withTrashed()->where('role', 'T')->oldest('name')->paginate(10);
         return view('tutors/index', compact('tutors', 'slug'));
     }
 
     public function search(Request $request, $slug = null) 
     {
         if ($request->get('name') == '' && $request->get('firstName') == '') {
-            $tutors = User::query()->withTrashed()->where('role', 'E')->oldest('name')->paginate(5);
+            $tutors = User::query()->withTrashed()->where('role', 'T')->oldest('name')->paginate(10);
         } elseif ($request->get('name') != '' && $request->get('firstName') == '') {
-            $tutors = User::query()->withTrashed()->where('role', 'E')->where('name', $request->get('name'))->oldest('name')->paginate(5);
+            $tutors = User::query()->withTrashed()->where('role', 'T')->where('name', $request->get('name'))->oldest('name')->paginate(10);
         } elseif ($request->get('name') == '' && $request->get('firstName') != '') {
-            $tutors = User::query()->withTrashed()->where('role', 'E')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $tutors = User::query()->withTrashed()->where('role', 'T')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(10);
         } else {
-            $tutors = User::query()->withTrashed()->where('role', 'E')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $tutors = User::query()->withTrashed()->where('role', 'T')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(10);
         }
         return view('tutors/index', compact('tutors', 'slug'));
     }
@@ -110,7 +110,7 @@ class TutorController extends Controller
     {
         $tutor->update($tutorRequest->all());
         $tutor->promotions()->sync($tutorRequest->promos);
-        return redirect()->route('tutors.index')->with('info', 'Le offre à bien été modifié');
+        return redirect()->route('tutors.index')->with('info', __('The tutor have been modified'));
     }
     /**
      * Remove the specified resource from storage.

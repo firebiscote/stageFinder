@@ -28,7 +28,36 @@ class CompanyController extends Controller
 
     public function search(Request $request) 
     {
-
+        if ($request->get('name') == '' && $request->get('line') == '') {
+            $companies = Company::query()->withTrashed()
+                ->where('trainee', '>=', $request->get('trainee'))
+                ->where('confidence', '>=', $request->get('grade'))
+                ->where('confidence', '>=', $request->get('confidence'))
+                ->oldest('name')->paginate(10);
+        } elseif ($request->get('name') != '' && $request->get('line') == '') {
+            $companies = Company::query()->withTrashed()
+                ->where('trainee', '>=', $request->get('trainee'))
+                ->where('confidence', '>=', $request->get('grade'))
+                ->where('confidence', '>=', $request->get('confidence'))
+                ->where('name', $request->get('name'))
+                ->oldest('name')->paginate(10);
+        } elseif ($request->get('name') == '' && $request->get('line') != '') {
+            $companies = Company::query()->withTrashed()
+                ->where('trainee', '>=', $request->get('trainee'))
+                ->where('confidence', '>=', $request->get('grade'))
+                ->where('confidence', '>=', $request->get('confidence'))
+                ->where('line', $request->get('line'))
+                ->oldest('name')->paginate(10);
+        } else {
+            $companies = Company::query()->withTrashed()
+                ->where('trainee', '>=', $request->get('trainee'))
+                ->where('confidence', '>=', $request->get('grade'))
+                ->where('confidence', '>=', $request->get('confidence'))
+                ->where('name', $request->get('name'))
+                ->where('line', $request->get('line'))
+                ->oldest('name')->paginate(10);
+        }
+        return view('companies/index', compact('companies'));
     }
     /**
      * Show the form for creating a new resource.

@@ -57,7 +57,7 @@
                                     <p class="card-title">{{ $rating->comment }}</p>
                                 </div>
                                 <div class="col text-right mt-4 mr-2 mb-4">
-                                    <p class="card-title">{{ $rating->grade }}</p>
+                                    <p class="card-title">{{ $rating->grade }}/10</p>
                                 </div>
                             </div>
                         </div>

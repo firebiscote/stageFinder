@@ -135,9 +135,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Cavarroc',
-            'firstName' => 'Maxime',
-            'email' => 'm@g.c',
+            'name' => 'TEST',
+            'firstName' => 'test',
+            'email' => 't@g.c',
             'email_verified_at' => now(),
             'password' => Hash::make('p'),
             'role' => 'A',

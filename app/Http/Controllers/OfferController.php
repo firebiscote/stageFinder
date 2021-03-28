@@ -48,6 +48,9 @@ class OfferController extends Controller
             ->whereIn('id', DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'W')->pluck('offer_id'))
             ->oldest('created_at')
             ->paginate(10);
+        foreach($offers as $offer) {
+            var_dump($offer->company);
+        }
         return view('offers/wishlist', compact('offers'));
     }
 
