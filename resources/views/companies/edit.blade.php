@@ -5,7 +5,7 @@
     <div class="card w-75 text-center  mx-auto mt-3">
         <form action="{{ route('companies.update', $company->id) }}" method="POST">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card-body">
                 <div class="row">
                     <div class="col">

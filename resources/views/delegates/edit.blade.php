@@ -5,7 +5,7 @@
     <div class="card w-75 text-center mx-auto mt-3">
         <form action="{{ route('students.update', $student->id) }}" method="POST">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card-body row">
                 <div class="col">
                     <label>{{ __('Name') }} :</label>
@@ -15,9 +15,9 @@
                     <input type="text" class="form-control w-50 mx-auto" name="firstName" value="{{ old('firstName', $student->firstName) }}">
 
                     <label>{{ __('Center') }} :</label>
-                    <select name="cent[]" class="custom-select">
+                    <select name="center_id" class="custom-select">
                         @foreach($centers as $center)
-                            <option value="{{ $center->id }}" {{ in_array($center->id, old('cent') ?: $delegate->center->pluck('id')->all()) ? 'selected' : '' }}>{{ $center->name }}</option>
+                            <option value="{{ $center->id }}" {{ ($center->id == old('center_id') ? : $tutor->center->id) ? 'selected' : '' }}>{{ $center->name }}</option>
                         @endforeach
                     </select>
 

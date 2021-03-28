@@ -10,7 +10,11 @@ use App\Models\{
     Center,
 };
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{
+    Route,
+    Hash,
+    Auth,
+};
 
 class TutorController extends Controller
 {
@@ -21,6 +25,7 @@ class TutorController extends Controller
      */
     public function index($slug = null)
     {
+        if (!Auth::user()->right->SFx13) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $model = null;
         if ($slug) {
             if (Route::currentRouteName() == 'tutors.center') {
@@ -55,6 +60,7 @@ class TutorController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->right->SFx14) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('tutors/create');
     }
     /**
@@ -63,12 +69,12 @@ class TutorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $userRequest)
+    public function store(UserRequest $tutorRequest)
     {
-        $tutor = User::create($userRequest->all());
-        $tutor->role = 'S';
-        $tutor->promotions()->attach($userRequest->promotion_id);
-        $tutor->centers()->attach($userRequest->center_id);
+        $tutorRequest->merge(['password' => Hash::make($tutorRequest->get('password'))]);
+        $tutorRequest->merge(['role' => 'T']);
+        $tutor = User::create(array_merge($tutorRequest->all(), ['email_verified_at' => now()]));
+        $tutor->promotions()->attach($tutorRequest->promos);
         return redirect()->route('tutors.index')->with('info', __('The tutor have been created'));
     }
     /**
@@ -90,6 +96,7 @@ class TutorController extends Controller
      */
     public function edit(User $tutor)
     {
+        if (!Auth::user()->right->SFx15) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('tutors/edit', compact('tutor'));
     }
     /**
@@ -99,10 +106,10 @@ class TutorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(userRequest $userRequest, user $user)
+    public function update(UserRequest $tutorRequest, User $tutor)
     {
-        $user->update($userRequest->all());
-        $user->promotions()->sync($userRequest->promo);
+        $tutor->update($tutorRequest->all());
+        $tutor->promotions()->sync($tutorRequest->promos);
         return redirect()->route('tutors.index')->with('info', 'Le offre à bien été modifié');
     }
     /**
@@ -113,19 +120,20 @@ class TutorController extends Controller
      */
     public function destroy(User $tutor)
     {
+        if (!Auth::user()->right->SFx16) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $tutor->forceDelete();
         return back()->with('info', __('The tutor have been deleted'));
     }
 
     public function forceDestroy($id)
     {
-        user::whereId($id)->firstOrFail()->forceDelete();
+        User::whereId($id)->firstOrFail()->forceDelete();
         return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
     }
 
     public function restore($id)
     {
-        user::whereId($id)->firstOrFail()->restore();
+        User::whereId($id)->firstOrFail()->restore();
         return back()->with('info', 'La offre a bien été restauré.');
     }
 }

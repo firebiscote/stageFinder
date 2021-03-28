@@ -18,13 +18,13 @@
                         <p class="help is-danger">{{ $message }}</p>
                     @enderror
                     <label>{{ __('Center') }} :</label><br>
-                    <select name="center_id">
+                    <select name="center_id" class="custom-select w-50">
                         @foreach($centers as $center)
                             <option value="{{ $center->id }}">{{ $center->name }}</option>
                         @endforeach
                     </select><br>
                     <label>{{ __('Assigned promotions') }} :</label><br>
-                    <select name="promos[]" multiple>
+                    <select name="promos[]" class="custom-select w-50" multiple>
                         @foreach($promotions as $promotion)
                         <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promos') ? : []) ? 'selected' : '' }}>{{ $promotion->name }}</option>
                         @endforeach
@@ -46,7 +46,7 @@
                     @error('confirmPassword')
                         <p class="help is-danger">{{ $message }}</p>
                     @enderror                 
-                    <input type="submit" class="btn btn-dark w-25 mt-3" value="{{ __('Create') }}">
+                    <input type="submit" class="btn btn-success w-25 mt-3" value="{{ __('Create') }}">
                 </div>
             </div>
         </form>

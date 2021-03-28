@@ -27,7 +27,7 @@
                     </select><br>
 
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promotion_id" class="custom-select w-50">
+                    <select name="promo[]" class="custom-select w-50">
                         @foreach($promotions as $promotion)
                             <option value="{{ $promotion->id }}">{{ $promotion->name }}</option>
                         @endforeach

@@ -8,7 +8,7 @@
         </div>
         <form action="{{ route('offers.update', $offer->id) }}" method="POST">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">

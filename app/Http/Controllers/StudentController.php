@@ -13,6 +13,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\{
     Route,
     Hash,
+    Auth,
 };
 
 class StudentController extends Controller
@@ -24,6 +25,7 @@ class StudentController extends Controller
      */
     public function index($slug = null)
     {
+        if (!Auth::user()->right->SFx22) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $model = null;
         if ($slug) {
             if (Route::currentRouteName() == 'students.center') {
@@ -58,6 +60,7 @@ class StudentController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->right->SFx23) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('students/create');
     }
     /**
@@ -70,7 +73,7 @@ class StudentController extends Controller
     {   
         $studentRequest->merge(['password' => Hash::make($studentRequest->get('password'))]);
         $student = User::create(array_merge($studentRequest->all(), ['email_verified_at' => now()]));
-        $student->promotions()->attach($studentRequest->promotion_id);
+        $student->promotions()->attach($studentRequest->promo);
         return redirect()->route('students.index')->with('info', __('The student have been created'));
     }
     /**
@@ -81,6 +84,7 @@ class StudentController extends Controller
      */
     public function show(User $student)
     {
+        if (!Auth::user()->right->SFx26) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $student->with('promotions')->get();
         return view('students/show', compact('student'));
     }
@@ -92,6 +96,7 @@ class StudentController extends Controller
      */
     public function edit(User $student)
     {
+        if (!Auth::user()->right->SFx24) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('students/edit', compact('student'));
     }
     /**
@@ -115,6 +120,7 @@ class StudentController extends Controller
      */
     public function destroy(User $student)
     {
+        if (!Auth::user()->right->SFx25) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $student->forceDelete();
         return back()->with('info', __('The student have been deleted'));
     }

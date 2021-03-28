@@ -10,7 +10,10 @@ use App\Models\{
     Center,
 };
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{
+    Route,
+    Auth,
+};
 
 class DelegateController extends Controller
 {
@@ -21,6 +24,7 @@ class DelegateController extends Controller
      */
     public function index($slug = null)
     {
+        if (!Auth::user()->right->SFx17) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $model = null;
         if($slug) {
             if(Route::currentRouteName() == 'delegates.center') {
@@ -37,13 +41,13 @@ class DelegateController extends Controller
     public function search(Request $request, $slug = null) 
     {
         if ($request->get('name') == '' && $request->get('firstName') == '') {
-            $delegates = User::query()->withTrashed()->where('role', 'E')->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'S')->oldest('name')->paginate(5);
         } elseif ($request->get('name') != '' && $request->get('firstName') == '') {
-            $delegates = User::query()->withTrashed()->where('role', 'E')->where('name', $request->get('name'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'S')->where('name', $request->get('name'))->oldest('name')->paginate(5);
         } elseif ($request->get('name') == '' && $request->get('firstName') != '') {
-            $delegates = User::query()->withTrashed()->where('role', 'E')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'S')->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
         } else {
-            $delegates = User::query()->withTrashed()->where('role', 'E')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
+            $delegates = User::query()->withTrashed()->where('role', 'S')->where('name', $request->get('name'))->where('firstName', $request->get('firstName'))->oldest('name')->paginate(5);
         }
         return view('delegates/index', compact('delegates', 'slug'));
     }
@@ -55,6 +59,7 @@ class DelegateController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->right->SFx18) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('delegates/create');
     }
     /**
@@ -79,6 +84,7 @@ class DelegateController extends Controller
      */
     public function show(User $delegate)
     {
+        if (!Auth::user()->right->SFx26) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $delegate->with('promotions')->get();
         return view('delegates/show', compact('delegate'));
     }
@@ -90,6 +96,7 @@ class DelegateController extends Controller
      */
     public function edit(User $delegate)
     {
+        if (!Auth::user()->right->SFx19) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('delegates/edit', compact('delegate'));
     }
     /**
@@ -113,6 +120,7 @@ class DelegateController extends Controller
      */
     public function destroy(User $delegate)
     {
+        if (!Auth::user()->right->SFx20) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $delegate->forceDelete();
         return back()->with('info', __('The delegate have been deleted'));
     }

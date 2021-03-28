@@ -7,7 +7,10 @@ use App\Models\{
     Company,
 };
 use App\Http\Requests\CompanyRequest;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{
+    Route,
+    Auth,
+};
 
 class CompanyController extends Controller
 {
@@ -18,6 +21,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->right->SFx2) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $companies = Company::withTrashed()->oldest('name')->paginate(10);
         return view('companies/index', compact('companies'));
     }
@@ -33,6 +37,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->right->SFx3) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('companies/create');
     }
     /**
@@ -55,6 +60,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
+        if (!Auth::user()->right->SFx7) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $company->with('localities')->get();
         return view('companies/show', compact('company'));
     }
@@ -66,6 +72,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
+        if (!Auth::user()->right->SFx4) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('companies/edit', compact('company'));
     }
     /**
@@ -89,6 +96,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        if (!Auth::user()->right->SFx6) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $company->forceDelete();
         return back()->with('info', __('The company have been deleted'));
     }

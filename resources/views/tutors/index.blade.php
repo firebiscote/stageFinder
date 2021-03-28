@@ -47,9 +47,7 @@
                 <div class="col">
                     <h5 class="card-title">{{$tutor->name}} {{$tutor->firstName}}</h5>
                     <p class="card-text">{{ __('Center of') }} {{$tutor->center->name}}</p>
-                    @foreach($tutor->promotions as $promotion)                    
-                        <p class="card-text">{{ __('Promotion') }} : {{$promotion->name}}</p>
-                    @endforeach
+                    <p class="card-text">{{ __('Promotion') }} : @foreach($tutor->promotions as $promotion) {{$promotion->name}} @endforeach</p>
                 </div>
                 <div class="col text-right mt-4">
                     @if(Auth::user()->right->SFx15)

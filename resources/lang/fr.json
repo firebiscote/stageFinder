@@ -652,6 +652,7 @@
     "Create a new company": "Créer une nouvelle entreprise",
     "Create an offer": "Créer une offre",
     "The student have been created": "L'étudiant a bien été créé",
+    "The tutor have been created": "Le pilote a bien été créé",
     "The company have been created": "L'entreprise a bien été créée",
     "The offer have been created": "L'offre a bien été créée",
     "The company have been deleted": "L'entreprise a bien été supprimée",
@@ -711,7 +712,8 @@
     "Confirm password": "Confirmez le mot de passe",
     "confirm password": "confirmez le mot de passe",
     "confirmPassword": "confirmezMotDePasse",
-    "Offer have been remove from your wish-list": "L'offre a bien été retirée de votre liste de voeux"
+    "Offer have been remove from your wish-list": "L'offre a bien été retirée de votre liste de voeux",
+    "You cannot do that !": "Vous ne pouvez pas faire ca !"
 
 
 }

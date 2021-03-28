@@ -5,7 +5,7 @@
     <div class="card w-75 text-center  mx-auto mt-3" >
         <form action="{{ route('tutors.update', $tutor->id) }}" method="POST">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card-body row">
                 <div class="col">
                     <label>{{ __('Name') }} :</label>
@@ -13,15 +13,15 @@
                     <label>{{ __('Firstname') }} :</label>
                     <input type="text" class="form-control w-50 mx-auto" name="firstName" value="{{ old('firstName', $tutor->firstName) }}">
                     <label>{{ __('Center') }} :</label><br>
-                    <select name="cent[]" class="custom-select">
+                    <select name="center_id" class="custom-select">
                         @foreach($centers as $center)
-                            <option value="{{ $center->id }}" {{ in_array($center->id, old('cent') ?: $tutor->centers->pluck('id')->all()) ? 'selected' : '' }}>{{ $center->name }}</option>
+                            <option value="{{ $center->id }}" {{ ($center->id == old('center_id') ? : $tutor->center->id) ? 'selected' : '' }}>{{ $center->name }}</option>
                         @endforeach
                     </select>
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promo[]" class="custom-select" multiple>
+                    <select name="promos[]" class="custom-select" multiple>
                         @foreach($promotions as $promotion)
-                            <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promo') ?: $tutor->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
+                            <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promos') ? : $tutor->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
                         @endforeach
                     </select>
                 </div>

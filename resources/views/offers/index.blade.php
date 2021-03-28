@@ -72,7 +72,7 @@
                         <div class="col">
                             <h5>{{ __('Results') }} :</h5>
                         </div>
-                        @if(Auth::user()->right->SFx3)
+                        @if(Auth::user()->right->SFx9)
                             <div class="col text-right">
                                 <a type="button" class="btn btn-success" href ="{{ route('offers.create') }}">{{ __('Create an offer') }}</a>                      
                             </div>

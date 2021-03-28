@@ -77,12 +77,14 @@ class OfferController extends Controller
 
     public function apply(Offer $offer) 
     {
+        if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         var_dump($offer->name);
         return view('offers/apply', compact('offer'));
     }
 
     public function addWish(Request $request) 
     {
+        if (!Auth::user()->right->SFx27) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         DB::table('offer_user')->insert([
             'status' => 'W',
             'offer_id' => $request->get('id'),
@@ -93,6 +95,7 @@ class OfferController extends Controller
 
     public function removeWish(Request $request) 
     {
+        if (!Auth::user()->right->SFx28) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         DB::table('offer_user')->where('user_id', Auth::user()->id)->where('offer_id', $request->get('id'))->where('status', 'W')->delete();
         return redirect()->route('offers.wishlist')->with('info', __('Offer have been remove from your wish-list'));
     }
@@ -103,6 +106,7 @@ class OfferController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->right->SFx9) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('offers/create');
     }
     /**
@@ -126,7 +130,7 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
-        var_dump($offer->id);
+        if (!Auth::user()->right->SFx12) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('offers/show', compact('offer'));
     }
     /**
@@ -137,6 +141,7 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
+        if (!Auth::user()->right->SFx10) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         return view('offers/edit', compact('offer'));
     }
     /**
@@ -161,6 +166,7 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer)
     {
+        if (!Auth::user()->right->SFx11) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $offer->forceDelete();
         return back()->with('info', __('The offer have been deleted'));
     }
