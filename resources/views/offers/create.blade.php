@@ -1,25 +1,21 @@
-@extends('appLayout', ['title' => "Création d'une offre"])
-
-@section('css')
-<link rel="stylesheet" type = "text/css" href ="{{url('css/createOffer.css')}}">
-@endsection
+@extends('appLayout', ['title' => __('Offer creation')])
 
 @section('content')
 
 	<div class="card  w-75 text-center  mx-auto mt-3">
         <div class="card-header text-center">
-            <h5>Offre proposé par : [nom de l'entreprise] à [localité entreprise] le <?php echo date('d/m/Y'); ?></h5>
+            <h5>{{ __('Offer from') }} : {{ $offer->company->name }} {{ __('at') }} {{ $offer->locality->name }} {{ __('on') }} {{ $offer->created_at }}</h5>
         </div>
         <div class="card-body">
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputTitre">Titre de l'annonce</label>
-                        <input type="text" class="form-control" id="inputTitre" >
+                        <input type="text" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputSeat">Nombre de place disponible </label>
-                        <input type="number" class="form-control" id="inputSeat" >
+                        <label for="inputSeat">Nombre de place disponible</label>
+                        <input type="number" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">

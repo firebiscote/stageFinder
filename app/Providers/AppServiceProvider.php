@@ -64,6 +64,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer([
+            'companies/index',
+        ], function ($view) {
+            $view->with('skills', Skill::query()->oldest('name')->get());
+        });
+
+        View::composer([
             'students/index',
             'students/create',
             'students/edit',

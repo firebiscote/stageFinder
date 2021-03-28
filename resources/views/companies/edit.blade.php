@@ -22,7 +22,7 @@
                         @enderror
 
                         <label>{{ __('Localities') }} :</label><br>
-                        <select name="locas[]" class="custom-select" multiple>
+                        <select name="locas[]" class="custom-select w-50" multiple>
                             @foreach($localities as $locality)
                                 <option value="{{ $locality->id }}" {{ in_array($locality->id, old('locas') ?: $company->localities->pluck('id')->all()) ? 'selected' : '' }}>{{ $locality->name }}</option>
                             @endforeach
@@ -40,7 +40,7 @@
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                         
-                        <input type="submit" class="btn btn-success w-25 mt-4" value="{{ __('Create') }}">
+                        <input type="submit" class="btn btn-warning w-25 mt-4" value="{{ __('Modify') }}">
                     </div>
                 </div>
             </div>

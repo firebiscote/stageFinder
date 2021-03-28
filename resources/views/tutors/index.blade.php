@@ -10,7 +10,7 @@
     <div class="card w-75 text-center  mx-auto mt-3">
         <div class="row">
             <div class="col">
-                <form action="{{ route('tutors.search') }}" method="get">
+                <form action="{{ route('tutors.search') }}" method="POST">
                     @csrf
                     <label>{{ __('Name') }} :</label>
                     <input type="search" class="form-control w-50 mx-auto" name="name">
@@ -57,9 +57,9 @@
                     @endif
                     @if(Auth::user()->right->SFx15)
                         <form action="{{ route('tutors.destroy', $tutor->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
                         </form>
                     @endif
                 </div>

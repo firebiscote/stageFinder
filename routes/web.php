@@ -41,10 +41,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('search/tutors', [TutorController::class, 'search'])->name('tutors.search');
 
     Route::resource('offers', OfferController::class);
+    Route::post('add/offers', [OfferController::class, 'add'])->name('offers.add');
     Route::get('locality/{slug}/offers', [OfferController::class, 'index'])->name('offers.locality');
     Route::get('promotion/{slug}/offers', [OfferController::class, 'index'])->name('offers.promotion');
     Route::get('skill/{slug}/offers', [OfferController::class, 'index'])->name('offers.skill');
     Route::get('company/{slug}/offers', [OfferController::class, 'index'])->name('offers.company');
+    Route::get('apply/{slug}/offers', [OfferController::class, 'apply'])->name('offers.apply');
     Route::get('wishlist', [OfferController::class, 'wishlist'])->name('offers.wishlist');
     Route::get('query', [OfferController::class, 'query'])->name('offers.query');
     Route::get('search/offers', [OfferController::class, 'search'])->name('offers.search');

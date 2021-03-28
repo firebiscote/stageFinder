@@ -75,9 +75,11 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $companyRequest, Company $company)
     {
-        //
+        $company->update($companyRequest->all());
+        $company->localities()->sync($companyRequest->locas);
+        return redirect()->route('companies.index')->with('info', __('The company have been modified'));
     }
     /**
      * Remove the specified resource from storage.

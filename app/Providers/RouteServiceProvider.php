@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/companies';
+    public const HOME = '/offers';
 
     /**
      * The controller namespace for the application.
@@ -53,11 +53,11 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('offer', function ($value) {
-            return Offer::with('Promotions')->find($value);
+            return Offer::with('Promotions')->find($value) ?? abort(404);
         });
 
         Route::bind('offer', function ($value) {
-            return Offer::with('Skills')->find($value);
+            return Offer::with('Skills')->find($value) ?? abort(404);
         });
 
         Route::bind('company', function ($value) {

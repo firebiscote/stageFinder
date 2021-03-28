@@ -2,6 +2,11 @@
 
 @section('content')
 
+    @if(session()->has('info'))
+        <div class="notification is-success">
+            {{ session('info') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-3">
             <div class="card  w-75 text-center  mx-auto mt-3">
@@ -41,7 +46,7 @@
                         @endforeach
                     </select>
 
-                    <form action="{{ route('offers.search') }}" method="GET">
+                    <form action="{{ route('offers.search') }}" method="POST">
                         @csrf
                         <p class="text-left mt-2">{{ __('Internship duration') }} <br>(/{{ __('week') }}) :</p>
                         <input type="number" class="form-control" min="8" max="25" value="8" name="duration">
@@ -84,15 +89,15 @@
                                         <p class="card-text text-left">{{ __('from') }} {{ $offer->company->name }}</p>
                                     </div>
                                     <div class="col text-right">
-                                        <a type="button" class="btn btn-dark" href ="{{ route('offers.show', $offer->id) }}">{{ __('See') }}</a>
+                                        <a type="button" class="btn btn-dark" href ="{{ route('offers.show', $offer) }}">{{ __('See') }}</a>
                                         @if(Auth::user()->right->SFx10)
                                             <a type="button" class="btn btn-warning" href ="{{ route('offers.edit', $offer->id) }}">{{ __('Modify') }}</a>   
                                         @endif
                                         @if(Auth::user()->right->SFx11)
                                             <form action="{{ route('offers.destroy', $offer->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
                                             </form>
                                         @endif
                                     </div>

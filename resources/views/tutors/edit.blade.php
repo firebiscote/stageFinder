@@ -9,9 +9,9 @@
             <div class="card-body row">
                 <div class="col">
                     <label>{{ __('Name') }} :</label>
-                    <input type="text" class="form-control w-50 mx-auto" value="[Nom]">
+                    <input type="text" class="form-control w-50 mx-auto" name="name" value="{{ old('name', $tutor->name) }}">
                     <label>{{ __('Firstname') }} :</label>
-                    <input type="text" class="form-control w-50 mx-auto" value="[Prénom]">
+                    <input type="text" class="form-control w-50 mx-auto" name="firstName" value="{{ old('firstName', $tutor->firstName) }}">
                     <label>{{ __('Center') }} :</label><br>
                     <select name="cent[]" class="custom-select">
                         @foreach($centers as $center)
@@ -19,7 +19,7 @@
                         @endforeach
                     </select>
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promo[]" class="custom-select">
+                    <select name="promo[]" class="custom-select" multiple>
                         @foreach($promotions as $promotion)
                             <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promo') ?: $tutor->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
                         @endforeach
@@ -27,11 +27,14 @@
                 </div>
                 <div class="col">
                     <label>{{ __('Email') }} :</label>
-                    <input type="email" class="form-control w-50 mx-auto" value="[Mail]">
+                    <input type="email" class="form-control w-50 mx-auto" name="email" value="{{ old('email', $tutor->email) }}">
+                    
                     <label>{{ __('Password') }} :</label>
-                    <input type="password" class="form-control w-50 mx-auto" value="[Mot de passe]">
+                    <input type="password" class="form-control w-50 mx-auto" name="password">
+                    
                     <label>{{ __('Confirm password') }} :</label>
-                    <input type="password" class="form-control w-50 mx-auto" value="[Mot de passe]">                  
+                    <input type="password" class="form-control w-50 mx-auto" name="confirmPassword">      
+                            
                     <input type="submit" class="btn btn-dark w-25 mt-3" value="{{ __('Modify') }}">
                 </div>
             </div>

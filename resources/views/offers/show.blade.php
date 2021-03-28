@@ -18,7 +18,6 @@
                     <p class="card-text text-justify">{{ __('Internship duration') }}: {{ $offer->start }} -> {{ $offer->end }}</p>
                     <p class="card-text text-justify">{{ __('Wage') }} (/h) : {{ $offer->wage }} €</p>
                     <p class="card-text text-justify">{{ __('Seat') }} : {{ $offer->seat }}</p>
-
                 </div>
             </div>
             <h5>{{ __('Offer description') }} :</h5>
@@ -28,8 +27,14 @@
 
                 </div>
             </div>
-            <button type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal">{{ __('Apply') }}</button></br>
-            <button type="button" class="btn btn-dark mt-2 w-25 h-50" style="white-space:normal">{{ __('Add to wish-list') }}</button>
+            @if(Auth::user()->right->SFx27 && Auth::user()->right->SFx28)
+                <a type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" href ="{{ route('offers.apply', $offer->id, $offer->name) }}">{{ __('Apply') }}</a><br> 
+                <form action="{{ route('offers.add') }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $offer->id }}" name="id">
+                    <input type="submit" class="btn btn-dark mt-5 w-25 h-50" style="white-space:normal" value="{{ __('Add to wish-list') }}">
+                </form>
+            @endif
         </div>
     </div>
 

@@ -28,8 +28,9 @@ class UserRequest extends FormRequest
             'name' => ['bail', 'required', 'string', 'max:30',],
             'firstName' => ['bail', 'required', 'string', 'max:30',],
             'email' => ['bail', 'required', 'email', 'unique:users', 'max:50',],
-            'role' => ['bail', 'char', Rule::in(['A', 'P', 'E', 'D']),],
+            'role' => ['bail', 'char', Rule::in(['A', 'T', 'S', 'D']),],
             'password' => ['bail', 'required', 'min:8',],
+            'confirmPassword' => ['bail', 'required', 'same:password',],
             'center_id' => ['bail', 'min:1',],
             'right_id' => ['bail', 'min:1',],
         ];

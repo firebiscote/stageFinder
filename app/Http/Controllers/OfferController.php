@@ -9,7 +9,6 @@ use App\Models\{
     Promotion,
     Company,
     User,
-    Skill,
 };
 use App\Http\Requests\OfferRequest;
 use Illuminate\Support\Facades\{
@@ -54,7 +53,7 @@ class OfferController extends Controller
 
     public function query() {
         $offers = Offer::query()
-            ->whereIn('id', DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'R')->pluck('offer_id'))
+            ->whereIn('id', DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'A')->pluck('offer_id'))
             ->oldest('created_at')
             ->paginate(10);
         return view('offers/query', compact('offers'));
@@ -74,6 +73,22 @@ class OfferController extends Controller
             $offers = Offer::query()->oldest('name')->paginate(10);
         }
         return view('offers/index', compact('offers', 'slug'));
+    }
+
+    public function apply(Offer $offer) 
+    {
+        var_dump($offer->name);
+        return view('offers/apply', compact('offer'));
+    }
+
+    public function add(Request $request) 
+    {
+        DB::table('offer_user')->insert([
+            'status' => 'W',
+            'offer_id' => $request->get('id'),
+            'user_id' => Auth::user()->id,
+        ]);
+        return redirect()->route('offers.index')->with('info', __('Offer have been added to your wish-list'));
     }
     /**
      * Show the form for creating a new resource.
@@ -104,8 +119,8 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
-        $locality = $offer->locality->name;
-        return view('offers/show', compact('offer', 'locality'));
+        var_dump($offer->id);
+        return view('offers/show', compact('offer'));
     }
     /**
      * Show the form for editing the specified resource.

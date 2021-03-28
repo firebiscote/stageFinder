@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class CreateUsersTable extends Migration
 {
@@ -20,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->char('role')->default('E');
-            $table->rememberToken();
+            $table->char('role')->default('S');
+            $table->rememberToken()->default(Str::random(10));
             $table->timestamps();
             $table->softDeletes();
 
@@ -32,7 +33,7 @@ class CreateUsersTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('right_id')->nullable();
+            $table->unsignedBigInteger('right_id')->default(2);
             $table->foreign('right_id')
                 ->references('id')
                 ->on('rights')

@@ -10,7 +10,7 @@
     <div class="card w-75 text-center  mx-auto mt-3">
         <div class="row">
             <div class="col">
-                <form action="{{ route('students.search') }}" method="get">
+                <form action="{{ route('students.search') }}" method="POST">
                     @csrf
                     <label>{{ __('Name') }} :</label>
                     <input type="search" class="form-control w-50 mx-auto" name="name">

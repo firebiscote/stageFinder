@@ -10,7 +10,10 @@ use App\Models\{
     Center,
 };
 use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{
+    Route,
+    Hash,
+};
 
 class StudentController extends Controller
 {
@@ -63,12 +66,11 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $userRequest)
-    {
-        $student = User::create($userRequest->all());
-        $student->role = 'S';
-        $student->promotions()->attach($userRequest->promotion_id);
-        $student->centers()->attach($userRequest->center_id);
+    public function store(UserRequest $studentRequest)
+    {   
+        $studentRequest->merge(['password' => Hash::make($studentRequest->get('password'))]);
+        $student = User::create(array_merge($studentRequest->all(), ['email_verified_at' => now()]));
+        $student->promotions()->attach($studentRequest->promotion_id);
         return redirect()->route('students.index')->with('info', __('The student have been created'));
     }
     /**
@@ -99,10 +101,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(userRequest $userRequest, user $user)
+    public function update(UserRequest $studentRequest, User $student)
     {
-        $user->update($userRequest->all());
-        $user->promotions()->sync($userRequest->promo);
+        $student->update($studentRequest->all());
+        $student->promotions()->sync($studentRequest->promo);
         return redirect()->route('students.index')->with('info', 'Le offre à bien été modifié');
     }
     /**
@@ -113,19 +115,19 @@ class StudentController extends Controller
      */
     public function destroy(User $student)
     {
-        $user->forceDelete();
+        $student->forceDelete();
         return back()->with('info', __('The student have been deleted'));
     }
 
     public function forceDestroy($id)
     {
-        user::whereId($id)->firstOrFail()->forceDelete();
+        User::whereId($id)->firstOrFail()->forceDelete();
         return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
     }
 
     public function restore($id)
     {
-        user::whereId($id)->firstOrFail()->restore();
+        User::whereId($id)->firstOrFail()->restore();
         return back()->with('info', 'La offre a bien été restauré.');
     }
 }

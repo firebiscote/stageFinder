@@ -1,80 +1,90 @@
-@extends('appLayout', ['title' => "Modification d'un délégué"])
+@extends('appLayout', ['title' => __('Delegate modification')])
 
 @section('content')
 
-    <div class="card w-75 text-center  mx-auto mt-3">
-        <div class="card-body row">
-            <div class="col">
-                <label>Nom :</label>
-                <input type="text" class="form-control w-50 mx-auto" value="[Nom]">
-                <label>Prénom :</label>
-                <input type="text" class="form-control w-50 mx-auto" value="[Prénom]">
-                <label>Centre :</label>
-                <input type="text" class="form-control w-50 mx-auto" value="[Centre]">
-                <label>Promotion :</label><br>
-                <select class="custom-select w-50  " >
-                    <option selected>[Promotion]</option>
-                    <option value="1">1ère année</option>
-                    <option value="2">2ème année</option>
-                    <option value="3">3ème année</option>
-                    <option value="3">4ème année</option>
-                    <option value="3">5ème année</option>
-                </select><br>
-            </div>
-            <div class="col">
-                <label>Mail :</label>
-                <input type="email" class="form-control w-50 mx-auto" value="[Mail]">
-                <label>Mot de passe :</label>
-                <input type="password" class="form-control w-50 mx-auto" value="[Mot de passe]">
-                <label>Confirmation du mot de passe : :</label>
-                <input type="password" class="form-control w-50 mx-auto" value="[Mot de passe]">
-                @if(Auth::user()->right->SFx21)
-                <div class="mt-4">
-                    <select class="custom-select " multiple>
-            <!--Pour préremplir, mettre selected après option si l'option était cochée lors de la création-->
-                        <optgroup label="Entreprise">
-                            <option>Rechercher</option>
-                            <option>Créer</option>
-                            <option>Modifier</option>
-                            <option>Supprimer</option>
-                            <option>Évaluer</option>
-                            <option>Consulter les statistiques</option>
-                        </optgroup>
-                        <optgroup label="Offre">
-                            <option>Rechercher</option>
-                            <option>Créer</option>
-                            <option>Modifier</option>
-                            <option>Supprimer</option>
-                            <option>Consulter les statistiques</option>
-                        </optgroup>
-                        <optgroup label="Pilote">
-                            <option>Rechercher</option>
-                            <option>Créer</option>
-                            <option>Modifier</option>
-                            <option>Supprimer</option>
-                        </optgroup>
-                        <optgroup label="Délégué">
-                            <option>Rechercher</option>
-                            <option>Créer</option>
-                            <option>Modifier</option>
-                            <option>Supprimer</option>
-                        </optgroup>
-                        <optgroup label="Étudiant">
-                            <option>Rechercher</option>
-                            <option>Créer</option>
-                            <option>Modifier</option>
-                            <option>Supprimer</option>
-                        </optgroup>
-                        <optgroup label="Avancement">
-                            <option>Informer le système de l'avancement de la candidature step 3</option>
-                            <option>Informer le système de l'avancement de la candidature step 4</option>
-                        </optgroup>
+    <div class="card w-75 text-center mx-auto mt-3">
+        <form action="{{ route('students.update', $student->id) }}" method="POST">
+            @csrf
+            @method('put')
+            <div class="card-body row">
+                <div class="col">
+                    <label>{{ __('Name') }} :</label>
+                    <input type="text" class="form-control w-50 mx-auto" name="name" value="{{ old('name', $student->name) }}">
+
+                    <label>{{ __('Firstname') }} :</label>
+                    <input type="text" class="form-control w-50 mx-auto" name="firstName" value="{{ old('firstName', $student->firstName) }}">
+
+                    <label>{{ __('Center') }} :</label>
+                    <select name="cent[]" class="custom-select">
+                        @foreach($centers as $center)
+                            <option value="{{ $center->id }}" {{ in_array($center->id, old('cent') ?: $delegate->center->pluck('id')->all()) ? 'selected' : '' }}>{{ $center->name }}</option>
+                        @endforeach
                     </select>
-                </div>  
-                @endif              
-                <button type="button" class="btn btn-warning w-25 mt-3">Modifier</button>
+
+                    <label>{{ __('Promotion') }} :</label><br>
+                    <select name="promo[]" class="custom-select">
+                        @foreach($promotions as $promotion)
+                                <option value="{{ $promotion->id }}" {{ in_array($promotion->id, old('promo') ?: $delegate->promotions->pluck('id')->all()) ? 'selected' : '' }}>{{ $promotion->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col">
+                    <label>{{ __('Email') }} :</label>
+                    <input type="email" class="form-control w-50 mx-auto" name="email" value="{{ old('email', $delegate->email) }}">
+                        
+                    <label>{{ __('Password') }} :</label>
+                    <input type="password" class="form-control w-50 mx-auto" name="password">
+                        
+                    <label>{{ __('Confirm password') }} :</label>
+                    <input type="password" class="form-control w-50 mx-auto" name="confirmPassword"> 
+                    @if(Auth::user()->right->SFx21)
+                        <div class="mt-4">
+                            <select class="custom-select" multiple>
+                    <!--Pour préremplir, mettre selected après option si l'option était cochée lors de la création-->
+                                <optgroup label="{{ __('Company') }}">
+                                    <option>{{ __('Search') }}</option>
+                                    <option>{{ __('Create') }}</option>
+                                    <option>{{ __('Modify') }}</option>
+                                    <option>{{ __('Delete') }}</option>
+                                    <option>{{ __('Rate') }}</option>
+                                    <option>{{ __('See statistics') }}</option>
+                                </optgroup>
+                                <optgroup label="{{ __('Offer') }}">
+                                    <option>{{ __('Search') }}</option>
+                                    <option>{{ __('Create') }}</option>
+                                    <option>{{ __('Modify') }}</option>
+                                    <option>{{ __('Delete') }}</option>
+                                    <option>{{ __('See statistics') }}</option>
+                                </optgroup>
+                                <optgroup label="{{ __('Tutor') }}">
+                                    <option>{{ __('Search') }}</option>
+                                    <option>{{ __('Create') }}</option>
+                                    <option>{{ __('Modify') }}</option>
+                                    <option>{{ __('Delete') }}</option>
+                                </optgroup>
+                                <optgroup label="{{ __('Delegate') }}">
+                                    <option>{{ __('Search') }}</option>
+                                    <option>{{ __('Create') }}</option>
+                                    <option>{{ __('Modify') }}</option>
+                                    <option>{{ __('Delete') }}</option>
+                                </optgroup>
+                                <optgroup label="{{ __('Student') }}">
+                                    <option>{{ __('Search') }}</option>
+                                    <option>{{ __('Create') }}</option>
+                                    <option>{{ __('Modify') }}</option>
+                                    <option>{{ __('Delete') }}</option>
+                                </optgroup>
+                                <optgroup label="Avancement">
+                                    <option>{{ __('Inform system of apply advancement step') }} 3</option>
+                                    <option>{{ __('Inform system of apply advancement step') }} 4</option>
+                                </optgroup>
+                            </select>
+                        </div>  
+                    @endif              
+                    <input type="submit" class="btn btn-warning w-25 mt-3" value="{{ __('Modify') }}">
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
 @endsection

@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <div class="card w-75 text-center  mx-auto mt-3" >
+    <div class="card w-75 text-center mx-auto mt-3" >
         <form action="{{ route('students.store') }}" method="POST">
-        @csrf
+            @csrf
             <div class="card-body row">
                 <div class="col">
                     <label>{{ __('Name') }} :</label>
@@ -20,14 +20,14 @@
                     @enderror
 
                     <label>{{ __('Center') }} :</label><br>
-                    <select name="center_id">
+                    <select name="center_id" class="custom-select w-50">
                         @foreach($centers as $center)
                             <option value="{{ $center->id }}">{{ $center->name }}</option>
                         @endforeach
                     </select><br>
 
                     <label>{{ __('Promotion') }} :</label><br>
-                    <select name="promotion_id">
+                    <select name="promotion_id" class="custom-select w-50">
                         @foreach($promotions as $promotion)
                             <option value="{{ $promotion->id }}">{{ $promotion->name }}</option>
                         @endforeach
@@ -50,9 +50,9 @@
                     <input type="password" class="form-control w-50 mx-auto" name="confirmPassword"> 
                     @error('confirmPassword')
                         <p class="help is-danger">{{ $message }}</p>
-                    @enderror 
+                    @enderror
   
-                    <input type="submit" formaction="{{ route('students.store') }}" class="btn btn-dark w-25 mt-3" value="{{ __('Create') }}">
+                    <input type="submit" class="btn btn-success w-25 mt-3" value="{{ __('Create') }}">
                 </div>
             </div>
         </form>

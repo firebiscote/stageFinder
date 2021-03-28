@@ -13,7 +13,7 @@
                 <div class="card-header text-center">
                     <h5>{{ __('Filters') }} :</h5>
                 </div>
-                <form action="{{ route('companies.search') }}" method="GET">
+                <form action="{{ route('companies.search') }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <p class="text-left mt-2">{{ __('Name') }} :</p>
@@ -22,17 +22,14 @@
                         <p class="text-left mt-2">{{ __('Buisness line') }} :</p>
                         <input type="search" class="form-control" name="line">
                         
-                        <p class="text-left mt-2">{{ __('Skills sought') }} :</p>
-                        <input type="search" class="form-control" name="skill">
-                        
                         <p class="text-left mt-2">{{ __('CESI trainee') }} :</p>
-                        <input type="number" class="form-control" min="0" name="trainee">
+                        <input type="number" class="form-control" min="0" value="0" name="trainee">
                         
                         <p class="text-left mt-2">{{ __('Trainee Ratings') }} (/10) :</p>
-                        <input type="number" class="form-control" min="1" max="10" name="rating">
+                        <input type="number" class="form-control" min="1" max="10" value="1" name="rating">
                         
                         <p class="text-left mt-2">{{ __('Tutor confidence') }} (/10) :</p>
-                        <input type="number" class="form-control" min="1" max="10" name="confidence">
+                        <input type="number" class="form-control" min="1" max="10" value="1" name="confidence">
                         
                         <input type="submit" class="btn btn-dark mt-4" value="{{ __('Search') }}">
                     </div>
@@ -65,7 +62,7 @@
                                         @endforeach
                                     </div>
                                     <div class="col text-right">
-                                        <a type="button" class="btn btn-success" href="{{ route('companies.show', $company->id) }}">{{ __('See') }}</a>
+                                        <a type="button" class="btn btn-dark" href="{{ route('companies.show', $company->id) }}">{{ __('See') }}</a>
                                         @if(Auth::user()->right->SFx4)								
                                             <a type="button" class="btn btn-warning" href ="{{ route('companies.edit', $company->id) }}">{{ __('Modify') }}</a>
                                         @endif
