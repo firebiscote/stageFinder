@@ -18,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::oldest('name')->paginate(10);
+        $companies = Company::withTrashed()->oldest('name')->paginate(10);
         return view('companies/index', compact('companies'));
     }
 
@@ -87,7 +87,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $company->delete();
+        $company->forceDelete();
         return back()->with('info', __('The company have been deleted'));
     }
 }

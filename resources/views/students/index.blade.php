@@ -54,9 +54,19 @@
                     @endforeach
                 </div>
                 <div class="col text-right mt-4">
-                    <a type="button" class="btn btn-dark w-25" href ="{{ route('students.show', $student->id) }}">{{ __('See') }}</a>
-                    <a type="button" class="btn btn-warning w-25" href ="{{ route('students.edit', $student->id) }}">{{ __('Modify') }}</a>
-                    <button type="button" class="btn btn-danger w-25">{{ __('Delete') }}</button>
+                    @if(Auth::user()->right->SFx26)
+                        <a type="button" class="btn btn-dark w-25" href ="{{ route('students.show', $student->id) }}">{{ __('See') }}</a>
+                    @endif
+                    @if(Auth::user()->right->SFx24)
+                        <a type="button" class="btn btn-warning w-25" href ="{{ route('students.edit', $student->id) }}">{{ __('Modify') }}</a>
+                    @endif
+                    @if(Auth::user()->right->SFx25)
+                        <form action="{{ route('students.destroy', $student->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

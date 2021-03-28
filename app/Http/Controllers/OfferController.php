@@ -124,8 +124,8 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer)
     {
-        $offer->delete();
-        return back()->with('info', 'La offre a bien été mis dans la corbeille.');
+        $offer->forceDelete();
+        return back()->with('info', __('The offer have been deleted'));
     }
 
     public function forceDestroy($id)

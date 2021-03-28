@@ -89,7 +89,11 @@
                                             <a type="button" class="btn btn-warning" href ="{{ route('offers.edit', $offer->id) }}">{{ __('Modify') }}</a>   
                                         @endif
                                         @if(Auth::user()->right->SFx11)
-                                            <a type="button" class="btn btn-danger" href ="{{ url('/uneEntreprise') }}">{{ __('Delete') }}</a> 
+                                            <form action="{{ route('offers.destroy', $offer->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                                            </form>
                                         @endif
                                     </div>
                                 </div>

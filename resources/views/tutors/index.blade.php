@@ -33,11 +33,13 @@
                     @endforeach
                 </select>
             </div>
-            @if(Auth::user()->right->SFx14)
             <div class="col">
-                <a type="button" class="btn btn-success w-50 mt-5" href ="{{ route('tutors.create') }}">{{ __('Create a new tutor') }}</a>
+                @if(Auth::user()->right->SFx14)
+                <div class="col">
+                    <a type="button" class="btn btn-success w-50 mt-5" href ="{{ route('tutors.create') }}">{{ __('Create a new tutor') }}</a>
+                </div>
+                @endif
             </div>
-            @endif
         </div>
         @foreach($tutors as $tutor)
         <div class="card mt-5 w-75 mx-auto">
@@ -50,8 +52,16 @@
                     @endforeach
                 </div>
                 <div class="col text-right mt-4">
-                    <a type="button" class="btn btn-warning w-25" href ="{{ route('tutors.edit', $tutor->id) }}">{{ __('Modify') }}</a>
-                    <button type="button" class="btn btn-danger w-25">{{ __('Delete') }}</button>
+                    @if(Auth::user()->right->SFx15)
+                        <a type="button" class="btn btn-warning w-25" href ="{{ route('tutors.edit', $tutor->id) }}">{{ __('Modify') }}</a>
+                    @endif
+                    @if(Auth::user()->right->SFx15)
+                        <form action="{{ route('tutors.destroy', $tutor->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

@@ -111,10 +111,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $student)
     {
-        $user->delete();
-        return back()->with('info', 'La offre a bien été mis dans la corbeille.');
+        $user->forceDelete();
+        return back()->with('info', __('The student have been deleted'));
     }
 
     public function forceDestroy($id)

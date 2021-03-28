@@ -28,7 +28,7 @@
                     @endforeach
                 </select>
             </div>
-            @if(Auth::user()->right->SFx23)
+            @if(Auth::user()->right->SFx18)
             <div class="col">
                 <a type="button" class="btn btn-success w-50 mt-5" href ="{{ route('delegates.create') }}">{{ __('Create a new delegate') }}</a>
             </div>
@@ -46,8 +46,16 @@
                 </div>
                 <div class="col text-right mt-4">
                     <a type="button" class="btn btn-dark w-25" href ="{{ route('delegates.show', $delegate->id) }}">{{ __('See') }}</a>
-                    <a type="button" class="btn btn-warning w-25" href ="{{ url('/delegates/modify') }}">{{ __('Modify') }}</a>
-                    <button type="button" class="btn btn-danger w-25">{{ __('Delete') }}</button>
+                    @if(Auth::user()->right->SFx19)	
+                        <a type="button" class="btn btn-warning w-25" href ="{{ url('/delegates/modify') }}">{{ __('Modify') }}</a>
+                    @endif
+                    @if(Auth::user()->right->SFx20)
+                        <form action="{{ route('delegates.destroy', $delegate->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger w-25" value="{{ __('Delete') }}">
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

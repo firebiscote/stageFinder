@@ -111,10 +111,10 @@ class DelegateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $delegate)
     {
-        $user->delete();
-        return back()->with('info', 'La offre a bien été mis dans la corbeille.');
+        $delegate->forceDelete();
+        return back()->with('info', __('The delegate have been deleted'));
     }
 
     public function forceDestroy($id)

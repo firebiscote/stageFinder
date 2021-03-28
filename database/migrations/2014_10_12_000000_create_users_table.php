@@ -36,8 +36,8 @@ class CreateUsersTable extends Migration
             $table->foreign('right_id')
                 ->references('id')
                 ->on('rights')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
