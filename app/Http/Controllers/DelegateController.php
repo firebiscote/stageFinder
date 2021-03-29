@@ -74,7 +74,7 @@ class DelegateController extends Controller
         $delegateRequest->merge(['role' => 'D']);
         $delegate = User::create(array_merge($delegateRequest->all(), ['email_verified_at' => now()]));
         $delegate->promotions()->attach($delegateRequest->promos);
-        return redirect()->route('delegates.index')->with('info', __('The delegate have been created'));
+        return redirect()->route('delegates.index')->with('info', __('The delegate has been created'));
     }
     /**
      * Display the specified resource.
@@ -110,7 +110,7 @@ class DelegateController extends Controller
     {
         $delegate->update($delegateRequest->all());
         $delegate->promotions()->sync($delegateRequest->promo);
-        return redirect()->route('delegates.index')->with('info', __('The delegate have been modified'));
+        return redirect()->route('delegates.index')->with('info', __('The delegate has been modified'));
     }
     /**
      * Remove the specified resource from storage.

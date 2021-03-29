@@ -2,11 +2,6 @@
 
 @section('content')
 
-    @if(session()->has('info')) 
-        <div class="notification is-success">
-            {{ session('info') }}
-        </div>
-    @endif
     @foreach($offers as $offer)
     <div class="card w-75 mx-auto mt-3 mb-3">        
         <div class="card-body" >

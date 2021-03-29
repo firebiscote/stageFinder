@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{ __('Company name') }} :</label><br>
+                        <label>{{ __('Company\'s name') }} :</label><br>
                         <select name="company_id" class="custom-select">
                             @foreach($companies as $company)
                                 <option value="{{ $company->id }}" {{ in_array($company->id, old('company_id') ? : []) ? 'selected' : '' }}>{{ $company->name }}</option>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{ __('Offer name') }}</label>
+                        <label>{{ __('Offer\'s name') }}</label>
                         <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                         @error('name')
                             <p class="help is-danger">{{ $message }}</p>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>{{ __('Skills required') }}</label><br>
+                        <label>{{ __('Required skills') }}</label><br>
                         <select name="skis[]" class="custom-select" multiple>
                             @foreach($skills as $skill)
                                 <option value="{{ $skill->id }}" {{ in_array($skill->id, old('skis') ? : []) ? 'selected' : '' }}>{{ $skill->name }}</option>
@@ -92,9 +92,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{ __('Offer description') }}</label>
+                        <label>{{ __('Offer\'s description') }}</label>
                         <textarea class="form-control" rows="3" name="comment">{{ old('comment') }}</textarea>
-                            @error('comment')
+                        @error('comment')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -105,9 +105,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        document.getElementById("Aujourdhui").valueAsDate = new Date();
-    </script>
 
 @endsection

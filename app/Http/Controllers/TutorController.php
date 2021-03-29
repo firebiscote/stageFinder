@@ -75,7 +75,7 @@ class TutorController extends Controller
         $tutorRequest->merge(['role' => 'T']);
         $tutor = User::create(array_merge($tutorRequest->all(), ['email_verified_at' => now()]));
         $tutor->promotions()->attach($tutorRequest->promos);
-        return redirect()->route('tutors.index')->with('info', __('The tutor have been created'));
+        return redirect()->route('tutors.index')->with('info', __('The tutor has been created'));
     }
     /**
      * Display the specified resource.
@@ -110,7 +110,7 @@ class TutorController extends Controller
     {
         $tutor->update($tutorRequest->all());
         $tutor->promotions()->sync($tutorRequest->promos);
-        return redirect()->route('tutors.index')->with('info', __('The tutor have been modified'));
+        return redirect()->route('tutors.index')->with('info', __('The tutor has been modified'));
     }
     /**
      * Remove the specified resource from storage.
@@ -122,7 +122,7 @@ class TutorController extends Controller
     {
         if (!Auth::user()->right->SFx16) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $tutor->forceDelete();
-        return back()->with('info', __('The tutor have been deleted'));
+        return back()->with('info', __('The tutor has been deleted'));
     }
 
     public function forceDestroy($id)

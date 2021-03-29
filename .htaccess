@@ -1,0 +1,4 @@
+AuthUserFile C:\Users\maxim\Documents\1CESI\A2\projet_4\security\.htpasswd
+AuthName "Répertoire à accès réservé"
+AuthType Basic
+Require valid-user

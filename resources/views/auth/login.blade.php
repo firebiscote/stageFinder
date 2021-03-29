@@ -18,8 +18,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-title mb-5 mt-5">Ce site a pour but de vous aider dans vos recherches de stage. Il répertorie différentes annonces et les entreprises qui leur sont associées. Vous pourrez également suivre l'avancement de vos demandes, tenir une Wish-list ainsi que de nombreuses autres fonctionnalités. </p>
-                <h5 class="card-text mb-5 mt-5">Pour accéder au site, merci de vous authentifier :</h5>
+                <p class="card-title mb-5 mt-5">{{ __('This website\'s goal is to help you find internships. It lists differents offers and the company\'s offering them. You will also be able to follow the progress of your demands, have a wish-list and many more features.') }}</p>
+                <h5 class="card-text mb-5 mt-5">{{ __('To access the website, please log in') }}. :</h5>
                 @if (session('status'))
                     <div class="mb-4 font-medium text-sm text-green-600">
                         {{ session('status') }}
@@ -50,7 +50,7 @@
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span><br>
                     <input type="submit" class="btn btn-success w-25 mb-5 mt-5" value="{{ __('Log in') }}">
                 </form>
-                <p class="card-title text-right mt-5">Site dévéloppé par CAVARROC Maxime, DEVINEAU Rodrigue, GILS Julie et SEROUSSI Théo.</p>
+                <p class="card-title text-right mt-5">{{ __('Website developed by') }} CAVARROC Maxime, DEVINEAU Rodrigue, GILS Julie {{ __('and') }} SEROUSSI Théo.</p>
             </div>
         </div>
 

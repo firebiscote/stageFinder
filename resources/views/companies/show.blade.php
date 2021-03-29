@@ -10,7 +10,7 @@
                 <div class="col-6"><p class="card-text text-left">{{ $company->email }}</p></div>
             </div>
             <div class="row mt-3">
-                <div class="col-6"><h5 class="card-text text-right">{{ __('Buisness line') }} :</h5></div>
+                <div class="col-6"><h5 class="card-text text-right">{{ __('Business line') }} :</h5></div>
                 <div class="col-6"><p class="card-text text-left">{{ $company->line }}</p></div>
             </div>
             <div class="row mt-3">
@@ -18,11 +18,11 @@
                 <div class="col-6"><p class="card-text text-left">@foreach($company->localities as $locality) {{ $locality->name }} @endforeach</p></div>
             </div>
             <div class="row mt-3">
-                <div class="col-6"><h5 class="card-text text-right">{{ __('Tutor confidence') }} :</h5></div>
+                <div class="col-6"><h5 class="card-text text-right">{{ __('Tutor's confidence') }} :</h5></div>
                 <div class="col-6"><p class="card-text text-left">{{ $company->confidence }}</p></div>
             </div>
             <div class="row mt-3">
-                <div class="col-6"><h5 class="card-text text-right">{{ __('CESI trainee') }} :</h5></div>
+                <div class="col-6"><h5 class="card-text text-right">{{ __('CESI intern') }} :</h5></div>
                 <div class="col-6"><p class="card-text text-left">{{ $company->trainee }}</p></div>
             </div>
             @if(Auth::user()->right->SFx5)
@@ -52,7 +52,7 @@
                     @endforeach
                 </div>
                 <div class="col-6">
-                    <h5 class="card-title text-center">{{ __('Available ratings') }} :</h5>
+                    <h5 class="card-title text-center">{{ __('Available assess') }} :</h5>
                     @foreach($company->ratings as $rating)
                         <div class="card mt-2 w-75 mx-auto">
                             <div class="row">

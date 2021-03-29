@@ -2,11 +2,6 @@
 
 @section('content')
 
-    @if(session()->has('info'))
-        <div class="notification is-success">
-            {{ session('info') }}
-        </div>
-    @endif
     <div class="card w-75 text-center  mx-auto mt-3">
         <div class="row">
             <div class="col">

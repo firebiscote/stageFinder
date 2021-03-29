@@ -2,11 +2,6 @@
 
 @section('content')
 
-    @if(session()->has('info'))
-        <div class="notification is-success">
-            {{ session('info') }}
-        </div>
-    @endif
     <div class="row">
         <div class="col-3">
             <div class="card  w-75 text-center  mx-auto mt-3">
@@ -19,16 +14,16 @@
                         <p class="text-left mt-2">{{ __('Name') }} :</p>
                         <input type="search" class="form-control" name="name">
                         
-                        <p class="text-left mt-2">{{ __('Buisness line') }} :</p>
+                        <p class="text-left mt-2">{{ __('Business line') }} :</p>
                         <input type="search" class="form-control" name="line">
                         
-                        <p class="text-left mt-2">{{ __('CESI trainee') }} :</p>
+                        <p class="text-left mt-2">{{ __('CESI intern') }} :</p>
                         <input type="number" class="form-control" min="0" value="0" name="trainee">
                         
-                        <p class="text-left mt-2">{{ __('Trainee Ratings') }} (/10) :</p>
+                        <p class="text-left mt-2">{{ __('Intern\'s grade') }} (/10) :</p>
                         <input type="number" class="form-control" min="1" max="10" value="1" name="grade">
                         
-                        <p class="text-left mt-2">{{ __('Tutor confidence') }} (/10) :</p>
+                        <p class="text-left mt-2">{{ __('Tutor\'s trust') }} (/10) :</p>
                         <input type="number" class="form-control" min="1" max="10" value="1" name="confidence">
                         
                         <input type="submit" class="btn btn-dark mt-4" value="{{ __('Search') }}">

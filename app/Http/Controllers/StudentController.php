@@ -74,7 +74,7 @@ class StudentController extends Controller
         $studentRequest->merge(['password' => Hash::make($studentRequest->get('password'))]);
         $student = User::create(array_merge($studentRequest->all(), ['email_verified_at' => now()]));
         $student->promotions()->attach($studentRequest->promo);
-        return redirect()->route('students.index')->with('info', __('The student have been created'));
+        return redirect()->route('students.index')->with('info', __('The student has been created'));
     }
     /**
      * Display the specified resource.
@@ -110,7 +110,7 @@ class StudentController extends Controller
     {
         $student->update($studentRequest->all());
         $student->promotions()->sync($studentRequest->promo);
-        return redirect()->route('students.index')->with('info', __('The student have been modified'));
+        return redirect()->route('students.index')->with('info', __('The student has been modified'));
     }
     /**
      * Remove the specified resource from storage.

@@ -1,4 +1,4 @@
-@extends('appLayout', ['title' => "Mes demandes"])
+@extends('appLayout', ['title' => __('My requests')])
 
 @section('content')
 

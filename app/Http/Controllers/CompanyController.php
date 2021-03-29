@@ -81,7 +81,7 @@ class CompanyController extends Controller
     {
         $company = Company::create(array_merge($companyRequest->all(), ['slug' => Str::slug($companyRequest->get('name'))]));
         $company->localities()->attach($companyRequest->locas);
-        return redirect()->route('companies.index')->with('info', __('The company have been created'));
+        return redirect()->route('companies.index')->with('info', __('The company has been created'));
     }
     /**
      * Display the specified resource.
@@ -117,7 +117,7 @@ class CompanyController extends Controller
     {
         $company->update(array_merge($companyRequest->all(), ['slug' => Str::slug($companyRequest->get('name'))]));
         $company->localities()->sync($companyRequest->locas);
-        return redirect()->route('companies.index')->with('info', __('The company have been modified'));
+        return redirect()->route('companies.index')->with('info', __('The company has been modified'));
     }
     /**
      * Remove the specified resource from storage.
@@ -129,7 +129,7 @@ class CompanyController extends Controller
     {
         if (!Auth::user()->right->SFx6) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $company->forceDelete();
-        return back()->with('info', __('The company have been deleted'));
+        return back()->with('info', __('The company has been deleted'));
     }
 
     public function rate(Request $request)

@@ -9,13 +9,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <label>{{ __('Company name') }} :</label>
+                        <label>{{ __('Company's name') }} :</label>
                         <input type="text" class="form-control w-50 mx-auto mb-4" name="name" value="{{ old('name', $company->name) }}">
                         @error('name')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
 
-                        <label>{{ __('Company email') }} :</label>
+                        <label>{{ __('Company's email') }} :</label>
                         <input type="text" class="form-control w-50 mx-auto mb-4" name="email" value="{{ old('email', $company->email) }}">
                         @error('email')
                             <p class="help is-danger">{{ $message }}</p>
@@ -28,13 +28,13 @@
                             @endforeach
                         </select><br>
 
-                        <label>Nombre de stagiaires CESI déjà recrutés :</label>
+                        <label>{{ __('CESI intern') }} :</label>
                         <input type="number" class="form-control w-50 mx-auto mb-4" name="trainee" value="{{ old('trainee', $company->trainee) }}">
                         @error('trainee')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
 
-                        <label>Secteur d'activité :</label>
+                        <label>{{ __('Business line') }} :</label>
                         <input type="text" class="form-control w-50 mx-auto mb-4" name="line" value="{{ old('line', $company->line) }}">
                         @error('line')
                             <p class="help is-danger">{{ $message }}</p>

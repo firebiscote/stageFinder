@@ -12,14 +12,14 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{ __('Offer name') }}</label>
+                        <label>{{ __('Offer\'s name') }}</label>
                         <input type="text" class="form-control" name="name" value="{{ old('name', $offer->name) }}">
                         @error('name')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-md-6">
-                        <label>{{ __('Seat available') }}</label>
+                        <label>{{ __('Seats available') }}</label>
                         <input type="number" class="form-control" min="1" max="100" name="seat" value="{{ old('seat', $offer->seat) }}">
                         @error('seat')
                             <p class="help is-danger">{{ $message }}</p>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>{{ __('Offer description') }}</label>
+                        <label>{{ __('Offer\'s description') }}</label>
                         <textarea class="form-control" rows="3" name="comment">{{ old('comment', $offer->comment) }}</textarea>
                         @error('comment')
                             <p class="help is-danger">{{ $message }}</p>

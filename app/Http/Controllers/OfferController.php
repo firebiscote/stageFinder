@@ -91,7 +91,7 @@ class OfferController extends Controller
         if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         Mail::to($request->get('companyMail'))
             ->queue(new Contact($request->except('_token')));
-        return redirect()->route('offers.index')->with('info', __('Email have been send'));
+        return redirect()->route('offers.index')->with('info', __('Email has been sent'));
     }
 
     public function addWish(Request $request) 
@@ -102,14 +102,14 @@ class OfferController extends Controller
             'offer_id' => $request->get('id'),
             'user_id' => Auth::user()->id,
         ]);
-        return redirect()->route('offers.index')->with('info', __('Offer have been added to your wish-list'));
+        return redirect()->route('offers.index')->with('info', __('Offer has been added to your wish-list'));
     }
 
     public function removeWish(Request $request) 
     {
         if (!Auth::user()->right->SFx28) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         DB::table('offer_user')->where('user_id', Auth::user()->id)->where('offer_id', $request->get('id'))->where('status', 'W')->delete();
-        return redirect()->route('offers.wishlist')->with('info', __('Offer have been remove from your wish-list'));
+        return redirect()->route('offers.wishlist')->with('info', __('Offer has been removed from your wish-list'));
     }
     /**
      * Show the form for creating a new resource.
@@ -132,7 +132,7 @@ class OfferController extends Controller
         $offer = Offer::create($offerRequest->all());
         $offer->skills()->attach($offerRequest->skis);
         $offer->promotions()->attach($offerRequest->promos);
-        return redirect()->route('offers.index')->with('info', __('The offer have been created'));
+        return redirect()->route('offers.index')->with('info', __('The offer has been created'));
     }
     /**
      * Display the specified resource.

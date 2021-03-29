@@ -2,16 +2,11 @@
 
 @section('content')
 
-    @if(session()->has('info'))
-        <div class="notification is-success">
-            {{ session('info') }}
-        </div>
-    @endif
     <div class="row">
         <div class="col-3">
             <div class="card  w-75 text-center  mx-auto mt-3">
                 <div class="card-header text-center">
-                    <h5>{{ __('Filter') }} :</h5>
+                    <h5>{{ __('Filters') }} :</h5>
                 </div>
                 <div class="card-body">
                     <p class="text-left mt-2">{{ __('Company') }} :</p>
@@ -54,7 +49,7 @@
                         <p class="text-left mt-2">{{ __('Wage') }} (/h) :</p>
                         <input type="number" class="form-control" step="0.01" min="3.90" max="99.99" value="3.90" name="wage">
 
-                        <p class="text-left mt-2">{{ __('Offer date') }} :</p>
+                        <p class="text-left mt-2">{{ __('Offer\'s date') }} :</p>
                         <input type="date" class="form-control" min="2021-03-01" value="2021-03-01" name="created_at">
 
                         <p class="text-left mt-2">{{ __('Seat') }} :</p>

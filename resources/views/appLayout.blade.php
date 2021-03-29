@@ -98,16 +98,20 @@
 						<!----------Pilotes---------->
 
 							<!--Si droit de rechercher (on estime que si il a le droit de creer de modifier ou de supprimer, c'est qu'il peut accéder à la liste)-->
-								@if(Auth::user()->right->SFx13)
-									<li class="nav-item">
-										<a class="nav-link" href ="{{ route('tutors.index') }}">{{ __('Tutor') }}</a>
-									</li>
-								@endif
+							@if(Auth::user()->right->SFx13)
+								<li class="nav-item">
+									<a class="nav-link" href ="{{ route('tutors.index') }}">{{ __('Tutor') }}</a>
+								</li>
+							@endif
 					</ul>
 				</div>
 			</nav>
 		</header>
-		
+			@if(session()->has('info'))
+				<div class="notification is-success">
+					{{ session('info') }}
+				</div>
+			@endif
         @yield('content')
 
 		<style>
