@@ -108,6 +108,7 @@ class StudentController extends Controller
      */
     public function update(UserRequest $studentRequest, User $student)
     {
+        $studentRequest->merge(['password' => Hash::make($studentRequest->get('password'))]);
         $student->update($studentRequest->all());
         $student->promotions()->sync($studentRequest->promo);
         return redirect()->route('students.index')->with('info', __('The student has been modified'));

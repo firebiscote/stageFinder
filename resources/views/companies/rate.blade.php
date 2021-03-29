@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row ">
                     <div class="col mx-5 ">
-                        <input type="hidden" name="id" value="{{ $id }}">
+                        <input type="hidden" name="company_id" value="{{ $id }}">
                         <h5>{{ __('Grade') }} ( /10) :</h5>
                         <input type="number" class="form-control text-center" min="1" max="10" name="grade">
                         <h5 class="mt-4">{{ __('Comment') }} :</h5>

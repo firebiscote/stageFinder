@@ -40,7 +40,7 @@
                         @enderror
 
                         @if(Auth::user()->role == 'T' || Auth::user()->role == 'A')
-                            <label>{{ __('Tutor's trust') }} (/10):</label>
+                            <label>{{ __('Tutor\'s trust') }} (/10):</label>
                             <input type="number" class="form-control w-50 mx-auto mb-4" min="1" max="10" name="confidence">
                             @error('confidence')
                                 <p class="mx-auto">{{ $message }}</p>

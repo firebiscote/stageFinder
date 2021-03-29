@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{
     Company,
+    Rating,
+    Offer,
 };
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\{
@@ -128,6 +130,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         if (!Auth::user()->right->SFx6) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        Offer::query()->where('company_id', $company->id)->forceDelete();
         $company->forceDelete();
         return back()->with('info', __('The company has been deleted'));
     }
@@ -142,12 +145,7 @@ class CompanyController extends Controller
     public function storeRating(Request $request)
     {
         if (!Auth::user()->right->SFx5) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
-        DB::table('ratings')->insert([
-            'grade' => $request->get('grade'),
-            'comment' => $request->get('comment'),
-            'company_id' => $request->get('id'),
-            'user_id' => Auth::user()->id,
-        ]);
+        $rating = Rating::create(array_merge($request->all(), ['user_id' => Auth::user()->id]));
         return redirect()->route('companies.index')->with('info', __('Your opinion has been taken into account'));
     }
 }

@@ -54,44 +54,35 @@
                     @enderror
                     @if(Auth::user()->right->SFx21)
                         <div class="mt-4">
-                            <select class="custom-select" multiple>
+                            <select class="custom-select" name="righs[]" multiple>
                     <!--Pour préremplir, mettre selected après option si l'option était cochée lors de la création-->
-                                <optgroup label="{{ __('Company') }}">
-                                    <option>{{ __('Search') }}</option>
-                                    <option>{{ __('Create') }}</option>
-                                    <option>{{ __('Modify') }}</option>
-                                    <option>{{ __('Delete') }}</option>
-                                    <option>{{ __('Rate') }}</option>
-                                    <option>{{ __('See statistics') }}</option>
-                                </optgroup>
                                 <optgroup label="{{ __('Offer') }}">
-                                    <option>{{ __('Search') }}</option>
-                                    <option>{{ __('Create') }}</option>
-                                    <option>{{ __('Modify') }}</option>
-                                    <option>{{ __('Delete') }}</option>
-                                    <option>{{ __('See statistics') }}</option>
+                                    <option name="SFx9">{{ __('Create') }}</option>
+                                    <option name="SFx10">{{ __('Modify') }}</option>
+                                    <option name="SFx11">{{ __('Delete') }}</option>
                                 </optgroup>
                                 <optgroup label="{{ __('Tutor') }}">
-                                    <option>{{ __('Search') }}</option>
-                                    <option>{{ __('Create') }}</option>
-                                    <option>{{ __('Modify') }}</option>
-                                    <option>{{ __('Delete') }}</option>
+                                    <option name="SFx13">{{ __('Search') }}</option>
+                                    <option name="SFx14">{{ __('Create') }}</option>
+                                    <option name="SFx15">{{ __('Modify') }}</option>
+                                    <option name="SFx16">{{ __('Delete') }}</option>
                                 </optgroup>
                                 <optgroup label="{{ __('Delegate') }}">
-                                    <option>{{ __('Search') }}</option>
-                                    <option>{{ __('Create') }}</option>
-                                    <option>{{ __('Modify') }}</option>
-                                    <option>{{ __('Delete') }}</option>
+                                    <option name="SFx17">{{ __('Search') }}</option>
+                                    <option name="SFx18">{{ __('Create') }}</option>
+                                    <option name="SFx19">{{ __('Modify') }}</option>
+                                    <option name="SFx20">{{ __('Delete') }}</option>
                                 </optgroup>
                                 <optgroup label="{{ __('Student') }}">
-                                    <option>{{ __('Search') }}</option>
-                                    <option>{{ __('Create') }}</option>
-                                    <option>{{ __('Modify') }}</option>
-                                    <option>{{ __('Delete') }}</option>
+                                    <option name="SFx22">{{ __('Search') }}</option>
+                                    <option name="SFx23">{{ __('Create') }}</option>
+                                    <option name="SFx24">{{ __('Modify') }}</option>
+                                    <option name="SFx25">{{ __('Delete') }}</option>
+                                    <option name="SFx26">{{ __('See statistics') }}</option>
                                 </optgroup>
-                                <optgroup label="Avancement">
-                                    <option>{{ __('Inform system of apply advancement step') }} 3</option>
-                                    <option>{{ __('Inform system of apply advancement step') }} 4</option>
+                                <optgroup label="{{('Process')}}">
+                                    <option name="SFx32">{{ __('Inform system of apply advancement step') }} 3</option>
+                                    <option name="SFx33">{{ __('Inform system of apply advancement step') }} 4</option>
                                 </optgroup>
                             </select>
                         </div>  

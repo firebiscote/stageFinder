@@ -18,7 +18,7 @@
                 <div class="col-6"><p class="card-text text-left">@foreach($company->localities as $locality) {{ $locality->name }} @endforeach</p></div>
             </div>
             <div class="row mt-3">
-                <div class="col-6"><h5 class="card-text text-right">{{ __('Tutor's confidence') }} :</h5></div>
+                <div class="col-6"><h5 class="card-text text-right">{{ __('Tutor\'s trust') }} :</h5></div>
                 <div class="col-6"><p class="card-text text-left">{{ $company->confidence }}</p></div>
             </div>
             <div class="row mt-3">

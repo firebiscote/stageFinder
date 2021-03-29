@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-class Contact extends Mailable
+class Apply extends Mailable
 {
     use Queueable;
     use SerializesModels;

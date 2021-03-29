@@ -52,44 +52,34 @@
                         <p class="help is-danger">{{ $message }}</p>
                     @enderror 
 
-                    <select class="custom-select mt-4" multiple>
-                    <!--Pour préremplir, mettre selected après option si l'option était cochée lors de la création-->
-                        <optgroup label="{{ __('Company') }}">
-                            <option>{{ __('Search') }}</option>
-                            <option>{{ __('Create') }}</option>
-                            <option>{{ __('Modify') }}</option>
-                            <option>{{ __('Delete') }}</option>
-                            <option>{{ __('Rate') }}</option>
-                            <option>{{ __('See statistics') }}</option>
-                        </optgroup>
+                    <select class="custom-select mt-4" name="righs[]" multiple>
                         <optgroup label="{{ __('Offer') }}">
-                            <option>{{ __('Search') }}</option>
-                            <option>{{ __('Create') }}</option>
-                            <option>{{ __('Modify') }}</option>
-                            <option>{{ __('Delete') }}</option>
-                            <option>{{ __('See statistics') }}</option>
+                            <option value="9">{{ __('Create') }}</option>
+                            <optio value="10">{{ __('Modify') }}</optio>
+                            <option value="11">{{ __('Delete') }}</option>
                         </optgroup>
                         <optgroup label="{{ __('Tutor') }}">
-                            <option>{{ __('Search') }}</option>
-                            <option>{{ __('Create') }}</option>
-                            <option>{{ __('Modify') }}</option>
-                            <option>{{ __('Delete') }}</option>
+                            <option value="13">{{ __('Search') }}</option>
+                            <option value="14">{{ __('Create') }}</option>
+                            <option value="15">{{ __('Modify') }}</option>
+                            <option value="16">{{ __('Delete') }}</option>
                         </optgroup>
                         <optgroup label="{{ __('Delegate') }}">
-                            <option>{{ __('Search') }}</option>
-                            <option>{{ __('Create') }}</option>
-                            <option>{{ __('Modify') }}</option>
-                            <option>{{ __('Delete') }}</option>
+                            <option value="17">{{ __('Search') }}</option>
+                            <option value="18">{{ __('Create') }}</option>
+                            <option value="19">{{ __('Modify') }}</option>
+                            <option value="20">{{ __('Delete') }}</option>
                         </optgroup>
                         <optgroup label="{{ __('Student') }}">
-                            <option>{{ __('Search') }}</option>
-                            <option>{{ __('Create') }}</option>
-                            <option>{{ __('Modify') }}</option>
-                            <option>{{ __('Delete') }}</option>
+                            <option value="22">{{ __('Search') }}</option>
+                            <option value="23">{{ __('Create') }}</option>
+                            <option value="24">{{ __('Modify') }}</option>
+                            <option value="25">{{ __('Delete') }}</option>
+                            <option value="26">{{ __('See statistics') }}</option>
                         </optgroup>
-                        <optgroup label="Avancement">
-                            <option>{{ __('Inform system of apply advancement step') }} 3</option>
-                            <option>{{ __('Inform system of apply advancement step') }} 4</option>
+                        <optgroup label="{{('Process')}}">
+                            <option value="32">{{ __('Inform system of apply advancement step') }} 3</option>
+                            <option value="33">{{ __('Inform system of apply advancement step') }} 4</option>
                         </optgroup>
                     </select><br>
   

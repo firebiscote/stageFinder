@@ -90,7 +90,7 @@ class OfferController extends Controller
     {
         if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         Mail::to($request->get('companyMail'))
-            ->queue(new Contact($request->except('_token')));
+            ->queue(new Apply($request->except('_token')));
         return redirect()->route('offers.index')->with('info', __('Email has been sent'));
     }
 

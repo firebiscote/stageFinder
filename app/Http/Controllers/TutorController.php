@@ -73,7 +73,8 @@ class TutorController extends Controller
     {
         $tutorRequest->merge(['password' => Hash::make($tutorRequest->get('password'))]);
         $tutorRequest->merge(['role' => 'T']);
-        $tutor = User::create(array_merge($tutorRequest->all(), ['email_verified_at' => now()]));
+        $tutor = User::create(array_merge($tutorRequest->all(), ['email_verified_at' => now(),
+                                                                'right_id' => 3]));
         $tutor->promotions()->attach($tutorRequest->promos);
         return redirect()->route('tutors.index')->with('info', __('The tutor has been created'));
     }
@@ -108,6 +109,7 @@ class TutorController extends Controller
      */
     public function update(UserRequest $tutorRequest, User $tutor)
     {
+        $tutorRequest->merge(['password' => Hash::make($tutorRequest->get('password'))]);
         $tutor->update($tutorRequest->all());
         $tutor->promotions()->sync($tutorRequest->promos);
         return redirect()->route('tutors.index')->with('info', __('The tutor has been modified'));

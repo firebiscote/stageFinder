@@ -16,6 +16,6 @@ class companyControllerTest extends TestCase
     public function testIndex()
     {
         $response = $this->get('companies/index');
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }
