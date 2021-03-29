@@ -28,7 +28,7 @@ class CompanyRequest extends FormRequest
             'email' => ['bail', 'required', 'email', 'max:50',],
             'line' => ['bail', 'required', 'string', 'max:30',],
             'trainee' => ['bail', 'required', 'integer', 'between:0,30000',],
-            'confidence' => ['bail', 'nullable', 'integer', 'between:1,10',],
+            //'confidence' => ['bail', 'nullable', 'integer', 'between:1,10',],
         ];
     }
 }

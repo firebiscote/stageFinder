@@ -89,7 +89,7 @@
                                         <p class="card-text text-left">{{ __('from') }} {{ $offer->company->name }}</p>
                                     </div>
                                     <div class="col text-right">
-                                        <a type="button" class="btn btn-dark" href ="{{ route('offers.show', $offer) }}">{{ __('See') }}</a>
+                                        <a type="button" class="btn btn-dark" href ="{{ route('offers.show', $offer->id) }}">{{ __('See') }}</a>
                                         @if(Auth::user()->right->SFx10)
                                             <a type="button" class="btn btn-warning" href ="{{ route('offers.edit', $offer->id) }}">{{ __('Modify') }}</a>   
                                         @endif

@@ -10,7 +10,9 @@ use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\{
     Route,
     Auth,
+    DB,
 };
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -77,7 +79,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $companyRequest)
     {
-        $company = Company::create($companyRequest->all());
+        $company = Company::create(array_merge($companyRequest->all(), ['slug' => Str::slug($companyRequest->get('name'))]));
         $company->localities()->attach($companyRequest->locas);
         return redirect()->route('companies.index')->with('info', __('The company have been created'));
     }
@@ -113,7 +115,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $companyRequest, Company $company)
     {
-        $company->update($companyRequest->all());
+        $company->update(array_merge($companyRequest->all(), ['slug' => Str::slug($companyRequest->get('name'))]));
         $company->localities()->sync($companyRequest->locas);
         return redirect()->route('companies.index')->with('info', __('The company have been modified'));
     }
@@ -128,5 +130,24 @@ class CompanyController extends Controller
         if (!Auth::user()->right->SFx6) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $company->forceDelete();
         return back()->with('info', __('The company have been deleted'));
+    }
+
+    public function rate(Request $request)
+    {
+        if (!Auth::user()->right->SFx5) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        $id = $request->get('id');
+        return view('companies/rate', compact('id'));
+    }
+
+    public function storeRating(Request $request)
+    {
+        if (!Auth::user()->right->SFx5) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        DB::table('ratings')->insert([
+            'grade' => $request->get('grade'),
+            'comment' => $request->get('comment'),
+            'company_id' => $request->get('id'),
+            'user_id' => Auth::user()->id,
+        ]);
+        return redirect()->route('companies.index')->with('info', __('Your opinion has been taken into account'));
     }
 }

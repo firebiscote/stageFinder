@@ -652,6 +652,7 @@
     "Create a new company": "Créer une nouvelle entreprise",
     "Create an offer": "Créer une offre",
     "The student have been created": "L'étudiant a bien été créé",
+    "The delegate have been created": "Le délégué a bien été créé",
     "The tutor have been created": "Le pilote a bien été créé",
     "The company have been created": "L'entreprise a bien été créée",
     "The offer have been created": "L'offre a bien été créée",
@@ -664,6 +665,8 @@
     "The tutor have been modified": "Le pilote a bien été modifié",
     "The student have been modified": "L'étudiant a bien été modifié",
     "The delegate have been modified": "Le délégué a bien été modifié",
+    "The offer have been modified": "L'offre a bien été modifiée",
+    "Email have been send": "L'email a bien été envoyé",
     "Assigned Promotions": "Promotions assignées",
     "Our companies": "Nos entreprises",
     "Buisness line": "Secteur d'activité",
@@ -676,6 +679,7 @@
     "Results": "Résultats",
     "Locality": "Localité",
     "Rate the company": "Évaluer l'entreprise",
+    "Company rating": "Évaluation d'une entreprise",
     "Available offers": "Offres disponibles",
     "Available ratings": "Évaluations disponibles",
     "Company name": "Nom de l'entreprise",
@@ -716,7 +720,10 @@
     "confirm password": "confirmez le mot de passe",
     "confirmPassword": "confirmezMotDePasse",
     "Offer have been remove from your wish-list": "L'offre a bien été retirée de votre liste de voeux",
-    "You cannot do that !": "Vous ne pouvez pas faire ca !"
+    "You cannot do that !": "Vous ne pouvez pas faire ca !",
+    "Grade": "Note",
+    "Comment": "Commentaire",
+    "Your opinion has been taken into account": "Votre avis a été pris en compte"
 
 
 }

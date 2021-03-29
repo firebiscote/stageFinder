@@ -70,10 +70,10 @@ class DelegateController extends Controller
      */
     public function store(UserRequest $delegateRequest)
     {
-        $delegate = User::create($delegateRequest->all());
-        $delegate->role = 'S';
-        $delegate->promotions()->attach($delegateRequest->promotion_id);
-        $delegate->centers()->attach($delegateRequest->center_id);
+        $delegateRequest->merge(['password' => Hash::make($delegateRequest->get('password'))]);
+        $delegateRequest->merge(['role' => 'D']);
+        $delegate = User::create(array_merge($delegateRequest->all(), ['email_verified_at' => now()]));
+        $delegate->promotions()->attach($delegateRequest->promos);
         return redirect()->route('delegates.index')->with('info', __('The delegate have been created'));
     }
     /**

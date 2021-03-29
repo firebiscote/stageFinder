@@ -57,9 +57,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-left">{{ $company->name }}</h5>
-                                        @foreach($company->localities as $locality)
-                                            <p class="card-text text-left">{{ $locality->name }}</p>
-                                        @endforeach
+                                        <p class="card-text text-left">@foreach($company->localities as $locality) {{ $locality->name }} @endforeach</p>
                                     </div>
                                     <div class="col text-right">
                                         <a type="button" class="btn btn-dark" href="{{ route('companies.show', $company->id) }}">{{ __('See') }}</a>

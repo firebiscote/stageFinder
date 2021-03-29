@@ -26,7 +26,7 @@ class CompanyFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'email' => $this->faker->companyEmail,
+            'email' => $this->faker->safeEmail,
             'line' => $this->faker->domainWord,
             'trainee' => $this->faker->numberBetween($min = 1, $max = 3000),
             'confidence' => $this->faker->randomDigit+1,

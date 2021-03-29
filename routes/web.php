@@ -41,18 +41,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('search/tutors', [TutorController::class, 'search'])->name('tutors.search');
 
     Route::resource('offers', OfferController::class);
-    Route::post('addWish/offers', [OfferController::class, 'addWish'])->name('offers.addWish');
-    Route::post('removeWish/offers', [OfferController::class, 'removeWish'])->name('offers.removeWish');
     Route::get('locality/{slug}/offers', [OfferController::class, 'index'])->name('offers.locality');
     Route::get('promotion/{slug}/offers', [OfferController::class, 'index'])->name('offers.promotion');
     Route::get('skill/{slug}/offers', [OfferController::class, 'index'])->name('offers.skill');
     Route::get('company/{slug}/offers', [OfferController::class, 'index'])->name('offers.company');
-    Route::get('apply/{slug}/offers', [OfferController::class, 'apply'])->name('offers.apply');
+    Route::post('apply/offers', [OfferController::class, 'apply'])->name('offers.apply');
+    Route::post('apply/sendEmail', [OfferController::class, 'sendEmail'])->name('offers.sendEmail');
     Route::get('wishlist', [OfferController::class, 'wishlist'])->name('offers.wishlist');
+    Route::post('addWish/offers', [OfferController::class, 'addWish'])->name('offers.addWish');
+    Route::post('removeWish/offers', [OfferController::class, 'removeWish'])->name('offers.removeWish');
     Route::get('query', [OfferController::class, 'query'])->name('offers.query');
     Route::post('search/offers', [OfferController::class, 'search'])->name('offers.search');
 
     Route::resource('companies', CompanyController::class);
-    Route::get('line/{line}/companies', [OfferController::class, 'index'])->name('companies.line');
+    Route::get('line/{line}/companies', [CompanyController::class, 'index'])->name('companies.line');
+    Route::post('rate/company', [CompanyController::class, 'rate'])->name('companies.rate');
+    Route::post('rate/storeRating', [CompanyController::class, 'storeRating'])->name('companies.storeRating');
     Route::post('search/companies', [CompanyController::class, 'search'])->name('companies.search');
 });

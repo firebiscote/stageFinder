@@ -15,9 +15,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6"><h5 class="card-text text-right">{{ __('Locality') }}</h5></div>
-                @foreach($company->localities as $locality)
-                    <div class="col-6"><p class="card-text text-left">{{ $locality->name }}</p></div>
-                @endforeach
+                <div class="col-6"><p class="card-text text-left">@foreach($company->localities as $locality) {{ $locality->name }} @endforeach</p></div>
             </div>
             <div class="row mt-3">
                 <div class="col-6"><h5 class="card-text text-right">{{ __('Tutor confidence') }} :</h5></div>
@@ -29,7 +27,12 @@
             </div>
             @if(Auth::user()->right->SFx5)
                 <div class="row mt-4 justify-content-center">
-                    <a type="button" class="btn btn-success center-block" href ="{{ url('/evaluerEntreprise') }}">{{ __('Rate the company') }}</a>
+                    <form action="{{ route('companies.rate') }}" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{ $company->id }}" name="id">
+                        <input type="submit" class="btn btn-success center-block" value="{{ __('Rate the company') }}">
+                    </form>
+                    <!--<a type="button" class="btn btn-success center-block" href ="{{ url('/evaluerEntreprise') }}">{{ __('Rate the company') }}</a>-->
                 </div>
             @endif
             <div class="row mt-4">

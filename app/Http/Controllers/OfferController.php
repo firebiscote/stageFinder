@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\{
     DB,
     Route,
     Auth,
+    Mail,
 };
+use App\Mail\Contact;
 
 class OfferController extends Controller
 {
@@ -45,18 +47,15 @@ class OfferController extends Controller
 
     public function wishlist() {
         $offers = Offer::query()
-            ->whereIn('id', DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'W')->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'W')->pluck('offer_id'))
             ->oldest('created_at')
             ->paginate(10);
-        foreach($offers as $offer) {
-            var_dump($offer->company);
-        }
         return view('offers/wishlist', compact('offers'));
     }
 
     public function query() {
         $offers = Offer::query()
-            ->whereIn('id', DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'A')->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'A')->pluck('offer_id'))
             ->oldest('created_at')
             ->paginate(10);
         return view('offers/query', compact('offers'));
@@ -78,11 +77,21 @@ class OfferController extends Controller
         return view('offers/index', compact('offers', 'slug'));
     }
 
-    public function apply(Offer $offer) 
+    public function apply(Request $request) 
     {
         if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
-        var_dump($offer->name);
-        return view('offers/apply', compact('offer'));
+        $name = $request->get('name');
+        $companyName = $request->get('companyName');
+        $companyEmail = $request->get('companyEmail');
+        return view('offers/apply', compact('name', 'companyName', 'companyEmail'));
+    }
+
+    public function sendEmail(Request $request) 
+    {
+        if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        Mail::to($request->get('companyMail'))
+            ->queue(new Contact($request->except('_token')));
+        return redirect()->route('offers.index')->with('info', __('Email have been send'));
     }
 
     public function addWish(Request $request) 
@@ -159,7 +168,7 @@ class OfferController extends Controller
         $offer->update($offerRequest->all());
         $offer->skills()->sync($offerRequest->skis);
         $offer->promotions()->sync($offerRequest->promos);
-        return redirect()->route('offers.index')->with('info', 'Le offre à bien été modifié');
+        return redirect()->route('offers.index')->with('info', __('The offer have been modified'));
     }
     /**
      * Remove the specified resource from storage.

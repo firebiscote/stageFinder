@@ -39,7 +39,7 @@
                             <p class="mx-auto">{{ $message }}</p>
                         @enderror
 
-                        <input type="submit" formaction="{{ route('students.store') }}" class="btn btn-success w-25 mt-4" value="{{ __('Create') }}">
+                        <input type="submit" class="btn btn-success w-25 mt-4" value="{{ __('Create') }}">
                     </div>
                 </div>
             </div>

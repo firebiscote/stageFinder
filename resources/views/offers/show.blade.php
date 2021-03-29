@@ -24,11 +24,18 @@
             <div class="card w-75 mx-auto mb-3">
                 <div class="card-body ">
                     <p class="card-text text-justify">{{ $offer->comment }}</p>
-
                 </div>
             </div>
             @if(Auth::user()->right->SFx27 && Auth::user()->right->SFx28)
-                <a type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" href ="{{ route('offers.apply', $offer->id, $offer->name) }}">{{ __('Apply') }}</a><br> 
+                <!--<a type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" href ="{{ route('offers.apply', $offer) }}">{{ __('Apply') }}</a><br>-->
+                <form action="{{ route('offers.apply', $offer->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $offer->id }}" name="id">
+                    <input type="hidden" value="{{ $offer->name }}" name="name">
+                    <input type="hidden" value="{{ $offer->company->name }}" name="companyName">
+                    <input type="hidden" value="{{ $offer->company->email }}" name="companyEmail">
+                    <input type="submit" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" value="{{ __('Apply') }}">
+                </form>
                 <form action="{{ route('offers.addWish') }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $offer->id }}" name="id">
