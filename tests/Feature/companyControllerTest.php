@@ -18,4 +18,11 @@ class companyControllerTest extends TestCase
         $response = $this->get('companies/index');
         $response->assertStatus(302);
     }
+
+    public function testSearch()
+    {
+        $response = $this->
+        $response = $this->view('companies/index');
+        $response->assertViewIs('auth/login');
+    }
 }

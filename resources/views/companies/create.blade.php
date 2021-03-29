@@ -8,13 +8,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <label>{{ __('Company's name') }} :</label>
+                        <label>{{ __('Company\'s name') }} :</label>
                         <input id="name" type="text" class="form-control w-50 mx-auto mb-4" name="name" value="{{ old('name') }}">
                         @error('name')
                             <p class="mx-auto">{{ $message }}</p>
                         @enderror
 
-                        <label>{{ __('Company's email') }} :</label>
+                        <label>{{ __('Company\'s email') }} :</label>
                         <input id="email" type="text" class="form-control w-50 mx-auto mb-4" name="email" value="{{ old('email') }}">
                         @error('email')
                             <p class="mx-auto">{{ $message }}</p>

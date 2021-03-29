@@ -10,14 +10,18 @@ use App\Models\{
     Company,
     User,
 };
-use App\Http\Requests\OfferRequest;
+use App\Http\Requests\{
+    OfferRequest,
+    ApplyRequest,
+};
 use Illuminate\Support\Facades\{
     DB,
     Route,
     Auth,
     Mail,
+    Storage,
 };
-use App\Mail\Contact;
+use App\Mail\Apply;
 
 class OfferController extends Controller
 {
@@ -41,14 +45,14 @@ class OfferController extends Controller
             }
         }
         $query = $model ? $model::whereSlug($slug)->firstOrFail()->offers() : Offer::query();
-        $offers = $query->withTrashed()->oldest('created_at')->paginate(10);
+        $offers = $query->withTrashed()->latest('created_at')->paginate(10);
         return view('offers/index', compact('offers', 'slug'));
     }
 
     public function wishlist() {
         $offers = Offer::query()
             ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'W')->pluck('offer_id'))
-            ->oldest('created_at')
+            ->latest('created_at')
             ->paginate(10);
         return view('offers/wishlist', compact('offers'));
     }
@@ -56,7 +60,7 @@ class OfferController extends Controller
     public function query() {
         $offers = Offer::query()
             ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'A')->pluck('offer_id'))
-            ->oldest('created_at')
+            ->latest('created_at')
             ->paginate(10);
         return view('offers/query', compact('offers'));
     }
@@ -69,7 +73,7 @@ class OfferController extends Controller
                 ->where('wage', '>=', $request->get('wage'))
                 ->where('created_at', '>=', $request->get('created_at'))
                 ->where('seat', '>=', $request->get('seat'))
-                ->oldest('name')->paginate(10);
+                ->latest('created_at')->paginate(10);
         } 
         catch (\InvalidArgumentException $e) {
             $offers = Offer::query()->oldest('name')->paginate(10);
@@ -86,11 +90,15 @@ class OfferController extends Controller
         return view('offers/apply', compact('name', 'companyName', 'companyEmail'));
     }
 
-    public function sendEmail(Request $request) 
+    public function sendEmail(Request $applyRequest) 
     {
         if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
-        Mail::to($request->get('companyMail'))
-            ->queue(new Apply($request->except('_token')));
+        $applyRequest->CV->storeAs(config('attachments.path'), 'CV.pdf', 'public');
+        $applyRequest->motivationLetter->storeAs(config('attachments.path'), 'motivationLetter.pdf', 'public');
+        Mail::to($applyRequest->get('companyMail'))
+            ->send(new Apply($applyRequest->except('_token')));
+        Storage::disk('public')->delete(config('attachments.path').'\CV.pdf');
+        Storage::disk('public')->delete(config('attachments.path').'\motivationLetter.pdf');
         return redirect()->route('offers.index')->with('info', __('Email has been sent'));
     }
 

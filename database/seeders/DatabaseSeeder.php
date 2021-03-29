@@ -58,6 +58,106 @@ class DatabaseSeeder extends Seeder
             'Toulouse',
         ];
 
+        $skills = [
+            'Cs',
+            'Cpp',
+            'Javascript',
+            'HTML',
+            'Python',
+            'Réseau',
+            'Système',
+            'PHP',
+            'mySQL',
+            'Base de données',
+            'Git',
+            'Linux',
+            'React.js',
+            'jQuery',
+            'Test unitaire',
+            'SEO',
+            'Angular',
+        ];
+
+        $companies = [
+            [
+                'name' => 'Winformatic',
+                'email' => 'winformatic@gmail.france',
+                'line' => 'Développement',
+                'trainee' => 3,
+                'confidence' => 8,
+            ],
+            [
+                'name' => 'IPVCOM',
+                'email' => 'ipvcom@gmail.france',
+                'line' => 'Réseau',
+                'trainee' => 6,
+                'confidence' => 7,
+            ],
+            [
+                'name' => 'Phone&co',
+                'email' => 'phone@gmail.france',
+                'line' => 'Téléphonie',
+                'trainee' => 4,
+                'confidence' => 6,
+            ],
+            [
+                'name' => 'Info com',
+                'email' => 'infocom@gmail.france',
+                'line' => 'Sécurité',
+                'trainee' => 3,
+                'confidence' => 10,
+            ],
+            [
+                'name' => 'IAnd you',
+                'email' => 'iandyou@gmail.france',
+                'line' => 'Intelligence artificielle',
+                'trainee' => 2,
+                'confidence' => 6,
+            ],
+            [
+                'name' => 'Apixit',
+                'email' => 'apixit@gmail.france',
+                'line' => 'Cyber-sécurité',
+                'trainee' => 4,
+                'confidence' => 5,
+            ],
+            [
+                'name' => 'Accor',
+                'email' => 'accor@gmail.france',
+                'line' => 'Big data',
+                'trainee' => 4,
+                'confidence' => 7,
+            ],
+            [
+                'name' => 'Calimaps',
+                'email' => 'calimaps@gmail.france',
+                'line' => 'Santé',
+                'trainee' => 2,
+                'confidence' => 4,
+            ],
+            [
+                'name' => 'Arduino compagnie',
+                'email' => 'arduino@gmail.france',
+                'line' => 'Systèmes embarqués',
+                'trainee' => 4,
+                'confidence' => 10,
+            ],
+            [
+                'name' => 'SNCF',
+                'email' => 'sncf@gmail.france',
+                'line' => 'Transport',
+                'trainee' => 10,
+                'confidence' => 9,
+            ],
+            [
+                'name' => 'Banque postale',
+                'email' => 'banquepostale@gmail.france',
+                'line' => 'Finance',
+                'trainee' => 5,
+                'confidence' => 6,
+            ],
+        ];
+
         DB::table('rights')->insert([
             'SFx1' => 1,
             'SFx2' => 1,
@@ -134,6 +234,44 @@ class DatabaseSeeder extends Seeder
             'SFx35' => 0,
         ]);
 
+        DB::table('rights')->insert([
+            'SFx1' => 1,
+            'SFx2' => 1,
+            'SFx3' => 1,
+            'SFx4' => 1,
+            'SFx5' => 1,
+            'SFx6' => 1,
+            'SFx7' => 1,
+            'SFx8' => 1,
+            'SFx9' => 1,
+            'SFx10' => 1,
+            'SFx11' => 1,
+            'SFx12' => 1,
+            'SFx13' => 0,
+            'SFx14' => 0,
+            'SFx15' => 0,
+            'SFx16' => 0,
+            'SFx17' => 1,
+            'SFx18' => 1,
+            'SFx19' => 1,
+            'SFx20' => 1,
+            'SFx21' => 1,
+            'SFx22' => 1,
+            'SFx23' => 1,
+            'SFx24' => 1,
+            'SFx25' => 1,
+            'SFx26' => 1,
+            'SFx27' => 0,
+            'SFx28' => 0,
+            'SFx29' => 0,
+            'SFx30' => 0,
+            'SFx31' => 0,
+            'SFx32' => 1,
+            'SFx33' => 1,
+            'SFx34' => 0,
+            'SFx35' => 0,
+        ]);
+
         DB::table('users')->insert([
             'name' => 'TEST',
             'firstName' => 'test',
@@ -160,11 +298,15 @@ class DatabaseSeeder extends Seeder
             Center::create(['name' => $center, 'slug' => Str::slug($center)]);
         }
 
-        Skill::factory(30)->create();
+        foreach($skills as $skill) {
+            Skill::create(['name' => $skill, 'slug' => Str::slug($skill)]);
+        }
+
+        foreach($companies as $company) {
+            Company::create(['name' => $company['name'], 'slug' => Str::slug($company['name']), 'email' => $company['email'], 'line' => $company['line'], 'trainee' => $company['trainee'], 'confidence' => $company['confidence']]);
+        }
 
         Right::factory(20)->create();
-
-        Company::factory(30)->create();
 
         User::factory()->count(50)->create()->each(function ($user) use ($ids) {
             shuffle($ids);

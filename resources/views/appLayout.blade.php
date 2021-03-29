@@ -12,10 +12,10 @@
 		<div class="w-100">
 			<div class="row">
 			  	<div class="col-sm">
-					<img id="logo" src="{{url('image/cesi.png')}}" alt="{{ __('CESI logo') }}"/>
+				  <a href="https://cesi.fr"><img id="logo" src="{{url('image/cesi.png')}}" alt="{{ __('CESI logo') }}"/></a>
 			  	</div>
 			  	<div class="col-sm">
-					<h1 id="titrePage">{{ $title }}</h1>
+				  	<h1 id="titrePage">{{ $title }}</h1>
 				</div>
 				<div class="col-sm mt-2 text-right">
 					<div class="nav-item dropdown">

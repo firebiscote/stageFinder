@@ -17,7 +17,7 @@ class CreateOffersTable extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->decimal('wage', $precision = 4, $scale = 2);
+            $table->decimal('wage', $precision = 4, $scale = 2); 
             $table->string('comment', 1000);
             $table->date('start');
             $table->date('end');

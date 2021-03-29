@@ -8,7 +8,10 @@ use App\Models\{
     Rating,
     Offer,
 };
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\{
+    CompanyRequest,
+    RatingRequest,
+};
 use Illuminate\Support\Facades\{
     Route,
     Auth,
@@ -135,10 +138,10 @@ class CompanyController extends Controller
         return back()->with('info', __('The company has been deleted'));
     }
 
-    public function rate(Request $request)
+    public function rate(RatingRequest $ratingRequest)
     {
         if (!Auth::user()->right->SFx5) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
-        $id = $request->get('id');
+        $id = $ratingRequest->get('id');
         return view('companies/rate', compact('id'));
     }
 

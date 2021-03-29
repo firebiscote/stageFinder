@@ -10,9 +10,9 @@
                     <div class="col mx-5 ">
                         <input type="hidden" name="company_id" value="{{ $id }}">
                         <h5>{{ __('Grade') }} ( /10) :</h5>
-                        <input type="number" class="form-control text-center" min="1" max="10" name="grade">
+                        <input type="number" class="form-control text-center" min="1" max="10" name="grade" required>
                         <h5 class="mt-4">{{ __('Comment') }} :</h5>
-                        <textarea class="form-control" rows="3" name="comment"></textarea>
+                        <textarea class="form-control" rows="3" name="comment" required></textarea>
                         <input type="submit" class="btn btn-success mt-4" value="{{ __('Rate') }}">
                     </div>
                 </div>
