@@ -14,7 +14,7 @@
 		<div class="w-100">
 			<div class="row">
 			  	<div class="col-sm">
-				  <a href="https://cesi.fr"><img id="logo" src="{{url('image/cesi.png')}}" alt="{{ __('CESI logo') }}"/></a>
+				  <a href="https://cesi.fr"><img id="logo" src="{{ url('image/cesi.png') }}" alt="{{ __('CESI logo') }}"/></a>
 			  	</div>
 			  	<div class="col-sm">
 				  	<h1 id="titrePage">{{ $title }}</h1>
