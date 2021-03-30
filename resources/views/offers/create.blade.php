@@ -27,14 +27,14 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>{{ __('Offer\'s name') }}</label>
-                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                         @error('name')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-md-6">
                         <label>{{ __('Seat') }}</label>
-                        <input type="number" class="form-control" min="1" max="100" name="seat" value="{{ old('seat') }}">
+                        <input type="number" class="form-control" min="1" max="100" name="seat" value="{{ old('seat') }}" required>
                         @error('seat')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
@@ -47,7 +47,7 @@
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-sm-2 text-right" ><p>{{ __('from') }}</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="start" value="{{ old('start') }}"></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-03-01" name="start" value="{{ old('start') }}" required></div>
                                     @error('start')
                                         <p class="help is-danger">{{ $message }}</p>
                                     @enderror
@@ -56,7 +56,7 @@
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-sm-2 text-right "><p>{{ __('to') }}</p></div>
-                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-05-01" name="end" value="{{ old('end') }}"></div>
+                                    <div class="col-sm-8"><input type="date" class="form-control" min="2021-05-01" name="end" value="{{ old('end') }}" required></div>
                                     @error('end')
                                         <p class="help is-danger">{{ $message }}</p>
                                     @enderror
@@ -84,7 +84,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>{{ __('Wage') }} (/h)</label>
-                        <input type="number" step="0.01" min="3.90" max="99.99" class="form-control" name="wage" value="{{ old('wage') }}">
+                        <input type="number" step="0.01" min="3.90" max="99.99" class="form-control" name="wage" value="{{ old('wage') }}" required>
                         @error('wage')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror
@@ -93,7 +93,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>{{ __('Offer\'s description') }}</label>
-                        <textarea class="form-control" rows="3" name="comment">{{ old('comment') }}</textarea>
+                        <textarea class="form-control" rows="3" name="comment" required>{{ old('comment') }}</textarea>
                         @error('comment')
                             <p class="help is-danger">{{ $message }}</p>
                         @enderror

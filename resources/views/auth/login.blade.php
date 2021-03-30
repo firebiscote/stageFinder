@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ __('authentification') }}</title>
-        <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+        <link rel="manifest" crossorigin="use-credentials" href="../manifest.json">
     </head>
     <body>
         <div class="card w-75 text-center  mx-auto mt-5 ">
@@ -57,16 +57,18 @@
         </div>
 
         <style>			
-            body {
-                background-image: url("{{url('image/cesi.jpg')}}") ;
+            body 
+            {
+                background-image: url("{{ url('image/cesi.jpg') }}") ;
             }
 
-            #logo {
+            #logo 
+            {
                 width: 350px;
                 height: 100px;
             }
         </style>
-        <script src="js/app.js"></script>
+        <script src="../js/app.js"></script>
         <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

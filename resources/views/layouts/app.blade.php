@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+    <link rel="manifest" crossorigin="use-credentials" href="../manifest.json">
 </head>
 <body>
     <div id="app">
@@ -65,7 +65,7 @@
         </main>
     </div>
     <!-- Scripts -->
-    <script src="js/app.js"></script>
+    <script src="../js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script><br />    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
