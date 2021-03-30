@@ -84,10 +84,11 @@ class OfferController extends Controller
     public function apply(Request $request) 
     {
         if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        $offer_id = $request->get('offer_id');
         $name = $request->get('name');
         $companyName = $request->get('companyName');
         $companyEmail = $request->get('companyEmail');
-        return view('offers/apply', compact('name', 'companyName', 'companyEmail'));
+        return view('offers/apply', compact('offer_id', 'name', 'companyName', 'companyEmail'));
     }
 
     public function sendEmail(Request $applyRequest) 
@@ -99,6 +100,11 @@ class OfferController extends Controller
             ->send(new Apply($applyRequest->except('_token')));
         Storage::disk('public')->delete(config('attachments.path').'\CV.pdf');
         Storage::disk('public')->delete(config('attachments.path').'\motivationLetter.pdf');
+        DB::table('offer_user')->insert([
+            'status' => 'A',
+            'offer_id' => $applyRequest->get('offer_id'),
+            'user_id' => Auth::user()->id,
+        ]);
         return redirect()->route('offers.index')->with('info', __('Email has been sent'));
     }
 

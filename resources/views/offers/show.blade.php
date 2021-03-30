@@ -30,7 +30,7 @@
                 <!--<a type="button" class="btn btn-success mt-5 w-25 h-50" style="white-space:normal" href ="{{ route('offers.apply', $offer) }}">{{ __('Apply') }}</a><br>-->
                 <form action="{{ route('offers.apply', $offer->id) }}" method="POST">
                     @csrf
-                    <input type="hidden" value="{{ $offer->id }}" name="id">
+                    <input type="hidden" value="{{ $offer->id }}" name="offer_id">
                     <input type="hidden" value="{{ $offer->name }}" name="name">
                     <input type="hidden" value="{{ $offer->company->name }}" name="companyName">
                     <input type="hidden" value="{{ $offer->company->email }}" name="companyEmail">

@@ -41,6 +41,7 @@
                         <input class="form-control" type="file" accept=".pdf" name="motivationLetter" required>  
                     </div>
                 </div>
+                <input type="hidden" name="offer_id" value="{{ $offer_id }}">
                 <input type="submit" class="btn btn-success center-block mt-3 w-25" value="{{ __('Validate') }}">
             </div>
         </form>
