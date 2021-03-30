@@ -28,7 +28,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()->right->SFx2) 
+        if (!Auth::user()->right->SFx2)
         {
             return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
         }
@@ -38,11 +38,11 @@ class CompanyController extends Controller
 
     /**
      * Display a listing of the companies with filters.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request) 
+    public function search(Request $request)
     {
         if ($request->get('name') == '' && $request->get('line') == '') {
             $companies = Company::query()->withTrashed()
@@ -83,7 +83,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        if (!Auth::user()->right->SFx3) 
+        if (!Auth::user()->right->SFx3)
         {
             return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
         }
@@ -98,8 +98,9 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $companyRequest)
     {
-        $company = Company::create(array_merge($companyRequest->all(),
-                                                ['slug' => Str::slug($companyRequest->get('name'))]));
+        $company = Company::create(
+            array_merge($companyRequest->all(), ['slug' => Str::slug($companyRequest->get('name'))])
+        );
         $company->localities()->attach($companyRequest->locas);
         return redirect()->route('companies.index')->with('info', __('The company has been created'));
     }
@@ -158,7 +159,9 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         if (!Auth::user()->right->SFx6)
-        {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         Offer::query()->where('company_id', $company->id)->forceDelete();
         $company->forceDelete();
         return back()->with('info', __('The company has been deleted'));
