@@ -16,7 +16,7 @@
                     <option value="3">Réponse négative</option>
                     <option value="3">Fiche de validation signée par le pilote</option>
                 </select>
-                <button type="button" class="btn btn-dark center-block">{{ __('Validate') }}</button>
+                <button type="button" class="btn btn-success center-block">{{ __('Validate') }}</button>
             </div>
         </div>
     @endforeach
