@@ -37,6 +37,9 @@ const assets = [
     '/resources/js/app.js',
     '/public/image/cesi.png',
     '/public/image/cesi.jpg',
+    '/public/js/app.js',
+    '/public/js/bootstrap.js',
+    '/public/manifest.json',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
     'https://fonts.gstatic.com/s/materialicons/v70/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'
 ];

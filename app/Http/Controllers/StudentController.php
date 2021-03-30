@@ -125,16 +125,4 @@ class StudentController extends Controller
         $student->forceDelete();
         return back()->with('info', __('The student have been deleted'));
     }
-
-    public function forceDestroy($id)
-    {
-        User::whereId($id)->firstOrFail()->forceDelete();
-        return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
-    }
-
-    public function restore($id)
-    {
-        User::whereId($id)->firstOrFail()->restore();
-        return back()->with('info', 'La offre a bien été restauré.');
-    }
 }

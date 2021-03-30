@@ -196,16 +196,4 @@ class OfferController extends Controller
         $offer->forceDelete();
         return back()->with('info', __('The offer have been deleted'));
     }
-
-    public function forceDestroy($id)
-    {
-        Offer::withTrashed()->whereId($id)->firstOrFail()->forceDelete();
-        return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
-    }
-
-    public function restore($id)
-    {
-        Offer::withTrashed()->whereId($id)->firstOrFail()->restore();
-        return back()->with('info', 'La offre a bien été restauré.');
-    }
 }

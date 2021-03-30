@@ -145,14 +145,4 @@ class DelegateController extends Controller
         $delegate->forceDelete();
         return back()->with('info', __('The delegate have been deleted'));
     }
-    public function forceDestroy($id)
-    {
-        User::whereId($id)->firstOrFail()->forceDelete();
-        return back()->with('info', 'La offre a bien été supprimé définitivement dans la base de données.');
-    }
-    public function restore($id)
-    {
-        User::whereId($id)->firstOrFail()->restore();
-        return back()->with('info', 'La offre a bien été restauré.');
-    }
 }
