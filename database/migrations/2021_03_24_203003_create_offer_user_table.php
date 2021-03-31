@@ -15,7 +15,7 @@ class CreateOfferUserTable extends Migration
     {
         Schema::create('offer_user', function (Blueprint $table) {
             $table->id();
-            $table->char('status')->default('W');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

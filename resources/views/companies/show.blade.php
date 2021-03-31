@@ -29,10 +29,9 @@
                 <div class="row mt-4 justify-content-center">
                     <form action="{{ route('companies.rate') }}" method="POST">
                         @csrf
-                        <input type="hidden" value="{{ $company->id }}" name="id">
-                        <input type="submit" class="btn btn-success center-block" value="{{ __('Rate the company') }}">
+                        <input type="hidden" value="{{ $company->id }}" name="company_id">
+                        <input type="submit" class="btn btn-success center-block" value="{{ __('Assess the company') }}">
                     </form>
-                    <!--<a type="button" class="btn btn-success center-block" href ="{{ url('/evaluerEntreprise') }}">{{ __('Rate the company') }}</a>-->
                 </div>
             @endif
             <div class="row mt-4">

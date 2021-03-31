@@ -26,11 +26,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/', OfferController::class);
 
     Route::resource('students', StudentController::class);
+    Route::post('students/changeState', [StudentController::class, 'changeState'])->name('students.changeState');
     Route::get('center/{slug}/students', [StudentController::class, 'index'])->name('students.center');
     Route::get('promotion/{slug}/students', [StudentController::class, 'index'])->name('students.promotion');
     Route::post('search/students', [StudentController::class, 'search'])->name('students.search');
 
     Route::resource('delegates', DelegateController::class);
+    Route::post('delegates/changeState', [DelegateController::class, 'changeState'])->name('delegates.changeState');
     Route::get('center/{slug}/delegates', [DelegateController::class, 'index'])->name('delegates.center');
     Route::get('promotion/{slug}/delegates', [DelegateController::class, 'index'])->name('delegates.promotion');
     Route::post('search/delegates', [DelegateController::class, 'search'])->name('delegates.search');
@@ -46,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('skill/{slug}/offers', [OfferController::class, 'index'])->name('offers.skill');
     Route::get('company/{slug}/offers', [OfferController::class, 'index'])->name('offers.company');
     Route::post('apply/offers', [OfferController::class, 'apply'])->name('offers.apply');
+    Route::post('apply/changeState', [OfferController::class, 'changeState'])->name('offers.changeState');
     Route::post('apply/sendEmail', [OfferController::class, 'sendEmail'])->name('offers.sendEmail');
     Route::get('wishlist', [OfferController::class, 'wishlist'])->name('offers.wishlist');
     Route::post('addWish/offers', [OfferController::class, 'addWish'])->name('offers.addWish');

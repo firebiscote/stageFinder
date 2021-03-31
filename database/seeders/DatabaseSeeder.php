@@ -284,36 +284,51 @@ class DatabaseSeeder extends Seeder
             'right_id' => 1,
         ]);
 
+        for ($i = 1; $i < 50; $i++) {
+            DB::table('offer_user')->insert([
+                'offer_id' => 1,
+                'user_id' => $i,
+                'status' => 1,
+            ]);
+        }
+
         $ids = range(1, 5);
         
-        foreach($promotions as $promotion) {
+        foreach($promotions as $promotion)
+        {
             Promotion::create(['name' => $promotion, 'slug' => Str::slug($promotion)]);
         }
 
-        foreach($localities as $locality) {
+        foreach($localities as $locality)
+        {
             Locality::create(['name' => $locality, 'slug' => Str::slug($locality)]);
         }
 
-        foreach($centers as $center) {
+        foreach($centers as $center)
+        {
             Center::create(['name' => $center, 'slug' => Str::slug($center)]);
         }
 
-        foreach($skills as $skill) {
+        foreach($skills as $skill)
+        {
             Skill::create(['name' => $skill, 'slug' => Str::slug($skill)]);
         }
 
-        foreach($companies as $company) {
+        foreach($companies as $company)
+        {
             Company::create(['name' => $company['name'], 'slug' => Str::slug($company['name']), 'email' => $company['email'], 'line' => $company['line'], 'trainee' => $company['trainee'], 'confidence' => $company['confidence']]);
         }
 
         Right::factory(20)->create();
 
-        User::factory()->count(50)->create()->each(function ($user) use ($ids) {
+        User::factory()->count(50)->create()->each(function ($user) use ($ids)
+        {
             shuffle($ids);
             $user->promotions()->attach(array_slice($ids, 0, 1));
         });
 
-        Offer::factory()->count(40)->create()->each(function ($offer) use ($ids) {
+        Offer::factory()->count(40)->create()->each(function ($offer) use ($ids)
+        {
             shuffle($ids);
             $offer->promotions()->attach(array_slice($ids, 0, rand(1,4)));
             shuffle($ids);

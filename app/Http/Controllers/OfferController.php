@@ -49,33 +49,64 @@ class OfferController extends Controller
         return view('offers/index', compact('offers', 'slug'));
     }
 
-    public function wishlist() {
+    public function wishlist() 
+    {
         $offers = Offer::query()
-            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'W')->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 0)->pluck('offer_id'))
             ->latest('created_at')
             ->paginate(10);
         return view('offers/wishlist', compact('offers'));
     }
 
-    public function query() {
+    public function query() 
+    {
         $offers = Offer::query()
-            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 'A')->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', '>', 0)->pluck('offer_id'))
             ->latest('created_at')
             ->paginate(10);
+        foreach ($offers as $offer) 
+        {
+            $offer->status = \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('offer_id', $offer->id)->pluck('status')[0];
+        }
         return view('offers/query', compact('offers'));
+    }
+
+    public function changeState(Request $request)
+    {
+        if ($request->get('progress') == 7)
+        {
+            \DB::table('offer_user')
+                ->where('user_id', Auth::user()->id)
+                ->where('offer_id', $request->get('offer_id'))
+                ->delete();
+            return redirect()->route('offers.query')->with('info', __('Sorry'));
+        }
+        if ($request->get('progress') == 6)
+        {
+            \DB::table('company_user')
+                ->insert(['company_id' => DB::table('offers')->where('id', $request->get('offer_id'))->pluck('company_id')[0],
+                          'user_id' => Auth::user()->id]);
+        }
+        \DB::table('offer_user')
+            ->where('user_id', Auth::user()->id)
+            ->where('offer_id', $request->get('offer_id'))
+            ->update(['status' => $request->get('progress')]);
+        return redirect()->route('offers.query')->with('info', __('Status updated'));
     }
 
     public function search(Request $request, $slug = null) 
     {
-        try {
+        try 
+        {
             $offers = Offer::query()
                 ->where(\DB::raw('TIMEDIFF(offers.end, offers.start)'), '>=', $request->get('duration'))
                 ->where('wage', '>=', $request->get('wage'))
                 ->where('created_at', '>=', $request->get('created_at'))
                 ->where('seat', '>=', $request->get('seat'))
                 ->latest('created_at')->paginate(10);
-        } 
-        catch (\InvalidArgumentException $e) {
+        }
+        catch (\InvalidArgumentException $e) 
+        {
             $offers = Offer::query()->oldest('name')->paginate(10);
         }
         return view('offers/index', compact('offers', 'slug'));
@@ -101,7 +132,7 @@ class OfferController extends Controller
         Storage::disk('public')->delete(config('attachments.path').'\CV.pdf');
         Storage::disk('public')->delete(config('attachments.path').'\motivationLetter.pdf');
         DB::table('offer_user')->insert([
-            'status' => 'A',
+            'status' => '1',
             'offer_id' => $applyRequest->get('offer_id'),
             'user_id' => Auth::user()->id,
         ]);
@@ -112,7 +143,7 @@ class OfferController extends Controller
     {
         if (!Auth::user()->right->SFx27) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         DB::table('offer_user')->insert([
-            'status' => 'W',
+            'status' => 0,
             'offer_id' => $request->get('id'),
             'user_id' => Auth::user()->id,
         ]);

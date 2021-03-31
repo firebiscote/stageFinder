@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\{
     Route,
     Hash,
     Auth,
+    DB,
 };
 
 class StudentController extends Controller
@@ -72,7 +73,8 @@ class StudentController extends Controller
     public function store(UserRequest $studentRequest)
     {   
         $studentRequest->merge(['password' => Hash::make($studentRequest->get('password'))]);
-        $student = User::create(array_merge($studentRequest->all(), ['email_verified_at' => now()]));
+        $student = User::create(array_merge($studentRequest->all(), ['email_verified_at' => now(),
+                                                                    'right_id' => 2]));
         $student->promotions()->attach($studentRequest->promo);
         return redirect()->route('students.index')->with('info', __('The student has been created'));
     }
@@ -86,7 +88,34 @@ class StudentController extends Controller
     {
         if (!Auth::user()->right->SFx26) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $student->with('promotions')->get();
+        foreach ($student->offers as $offer) 
+        {
+            $offer->status = \DB::table('offer_user')->where('user_id', $student->id)->where('offer_id', $offer->id)->pluck('status')[0];
+        }
         return view('students/show', compact('student'));
+    }
+
+    public function changeState(Request $request)
+    {
+        if ($request->get('progress') == 7)
+        {
+            \DB::table('offer_user')
+                ->where('user_id', $request->get('user_id'))
+                ->where('offer_id', $request->get('offer_id'))
+                ->delete();
+            return redirect()->route('students.index')->with('info', __('Sorry'));
+        }
+        if ($request->get('progress') == 6)
+        {
+            \DB::table('company_user')
+                ->insert(['company_id' => DB::table('offers')->where('id', $request->get('offer_id'))->pluck('company_id')[0],
+                          'user_id' => $request->get('user_id')]);
+        }
+        \DB::table('offer_user')
+            ->where('user_id', $request->get('user_id'))
+            ->where('offer_id', $request->get('offer_id'))
+            ->update(['status' => $request->get('progress')]);
+        return redirect()->route('students.index')->with('info', __('Status updated'));
     }
     /**
      * Show the form for editing the specified resource.

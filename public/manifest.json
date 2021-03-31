@@ -7,15 +7,6 @@
     "theme_color": "#03a9f4",
     "orientation": "portrait-primary",
     "icons" : [
-        {
-            "src": "./image/cesi.png",
-            "type": "image/png",
-            "sizes": "1300x400"
-        },
-        {
-            "src": "./image/cesi.jpg",
-            "type": "image/jpg",
-            "sizes": "2591x1400"
-        }
+        
     ]
 }

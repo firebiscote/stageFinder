@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\{
     Route,
     Auth,
     Hash,
+    DB,
 };
 
 class DelegateController extends Controller
@@ -37,6 +38,7 @@ class DelegateController extends Controller
         $delegates = $query->withTrashed()->where('role', 'D')->oldest('name')->paginate(10);
         return view('delegates/index', compact('delegates', 'slug'));
     }
+    
     public function search(Request $request, $slug = null) 
     {
         if ($request->get('name') == '' && $request->get('firstName') == '') {
@@ -96,7 +98,37 @@ class DelegateController extends Controller
     {
         if (!Auth::user()->right->SFx26) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
         $delegate->with('promotions')->get();
+        foreach ($delegate->offers as $offer) 
+        {
+            $offer->status = \DB::table('offer_user')
+                ->where('user_id', $delegate->id)
+                ->where('offer_id', $offer->id)
+                ->pluck('status')[0];
+        }
         return view('delegates/show', compact('delegate'));
+    }
+
+    public function changeState(Request $request)
+    {
+        if ($request->get('progress') == 7)
+        {
+            \DB::table('offer_user')
+                ->where('user_id', $request->get('user_id'))
+                ->where('offer_id', $request->get('offer_id'))
+                ->delete();
+            return redirect()->route('delegates.index')->with('info', __('Sorry'));
+        }
+        if ($request->get('progress') == 6)
+        {
+            \DB::table('company_user')
+                ->insert(['company_id' => DB::table('offers')->where('id', $request->get('offer_id'))->pluck('company_id')[0],
+                          'user_id' => $request->get('user_id')]);
+        }
+        \DB::table('offer_user')
+            ->where('user_id', $request->get('user_id'))
+            ->where('offer_id', $request->get('offer_id'))
+            ->update(['status' => $request->get('progress')]);
+        return redirect()->route('delegates.index')->with('info', __('Status updated'));
     }
     /**
      * Show the form for editing the specified resource.

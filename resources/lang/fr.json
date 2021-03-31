@@ -729,5 +729,17 @@
     "My requests": "Mes demandes",
     "This website's goal is to help you find internships. It lists differents offers and the company's offering them. You will also be able to follow the progress of your demands, have a wish-list and many more features.": "Ce site a pour but de vous aider dans vos recherches de stage. Il répertorie différentes annonces et les entreprises qui leur sont associées. Vous pourrez également suivre l'avancement de vos demandes, tenir une liste de voeux ainsi que de nombreuses autres fonctionnalités.",
     "To access the website, please log in": "Pour accéder au site, merci de vous authentifier",
-    "Intern's grade": "Note des stagiaires"
+    "Intern's grade": "Note des stagiaires",
+    "Status updated": "Statut mis à jour",
+    "Step": "Étape",
+    "Waiting for response": "En attente d'une réponse",
+    "Positive response": "Réponse positive",
+    "Negative response": "Réponse négative",
+    "Validation sheet has been sent by the company": "Fiche de validation émise par l'entreprise",
+    "Validation sheet has been signed by the tutor": "Fiche de validation signée par le pilote",
+    "Internship agreement has been sent by the company": "Conventions émises à l'entreprise",
+    "Internship agreement has been signed": "Conventions signées",
+    "Sorry": "Désolé",
+    "You didn't work as an intern here": "Vous n'avez effectué de stage ici"
+
 }

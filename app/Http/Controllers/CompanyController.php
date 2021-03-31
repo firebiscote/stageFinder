@@ -173,13 +173,24 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request\RatingRequest  $ratingRequest
      * @return \Illuminate\Http\Response
      */
-    public function rate(RatingRequest $ratingRequest)
+    public function rate(Request $request)
     {
         if (!Auth::user()->right->SFx5)
         {
             return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
         }
-        $id = $ratingRequest->get('id');
+        $id = $request->get('company_id');
+        try 
+        {
+            $test = DB::table('company_user')
+                ->where('company_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->pluck('user_id')[0];
+        }
+        catch (\Exception $e)
+        {
+            return redirect()->route('companies.index')->with('info', __('You didn\'t work as an intern here'));
+        }
         return view('companies/rate', compact('id'));
     }
 
