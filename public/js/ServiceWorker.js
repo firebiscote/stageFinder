@@ -7,7 +7,7 @@ const ASSETS = [
     '/',
     '../resources/views/auth/login.blade.php',
     '../resources/views/auth/verify.blade.php',
-    '/resources/views/companies/create.blade.php',
+    '../resources/views/companies/create.blade.php',
     '../resources/views/companies/edit.blade.php',
     '../resources/views/companies/index.blade.php',
     '../resources/views/companies/rate.blade.php',

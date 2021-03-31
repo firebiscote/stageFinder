@@ -33,14 +33,19 @@ class OfferController extends Controller
     public function index($slug = null)
     {
         $model = null;
-        if ($slug) {
-            if (Route::currentRouteName() == 'offers.locality') {
+        if ($slug)
+        {
+            if (Route::currentRouteName() == 'offers.locality')
+            {
                 $model = new Locality;
-            } elseif (Route::currentRouteName() == 'offers.promotion') {
+            } elseif (Route::currentRouteName() == 'offers.promotion')
+            {
                 $model = new Promotion;
-            } elseif (Route::currentRouteName() == 'offers.company') {
+            } elseif (Route::currentRouteName() == 'offers.company')
+            {
                 $model = new Company;
-            } else {
+            } else
+            {
                 $model = new Skill;
             }
         }
@@ -52,7 +57,9 @@ class OfferController extends Controller
     public function wishlist() 
     {
         $offers = Offer::query()
-            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', 0)->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')
+            ->where('user_id', Auth::user()->id)
+            ->where('status', 0)->pluck('offer_id'))
             ->latest('created_at')
             ->paginate(10);
         return view('offers/wishlist', compact('offers'));
@@ -61,7 +68,9 @@ class OfferController extends Controller
     public function query() 
     {
         $offers = Offer::query()
-            ->whereIn('id', \DB::table('offer_user')->where('user_id', Auth::user()->id)->where('status', '>', 0)->pluck('offer_id'))
+            ->whereIn('id', \DB::table('offer_user')
+            ->where('user_id', Auth::user()->id)
+            ->where('status', '>', 0)->pluck('offer_id'))
             ->latest('created_at')
             ->paginate(10);
         foreach ($offers as $offer) 
@@ -84,7 +93,9 @@ class OfferController extends Controller
         if ($request->get('progress') == 6)
         {
             \DB::table('company_user')
-                ->insert(['company_id' => DB::table('offers')->where('id', $request->get('offer_id'))->pluck('company_id')[0],
+                ->insert(['company_id' => DB::table('offers')
+                                            ->where('id', $request->get('offer_id'))
+                                            ->pluck('company_id')[0],
                           'user_id' => Auth::user()->id]);
         }
         \DB::table('offer_user')
@@ -114,7 +125,10 @@ class OfferController extends Controller
 
     public function apply(Request $request) 
     {
-        if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx29)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         $offer_id = $request->get('offer_id');
         $name = $request->get('name');
         $companyName = $request->get('companyName');
@@ -124,7 +138,10 @@ class OfferController extends Controller
 
     public function sendEmail(Request $applyRequest) 
     {
-        if (!Auth::user()->right->SFx29) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx29)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         $applyRequest->CV->storeAs(config('attachments.path'), 'CV.pdf', 'public');
         $applyRequest->motivationLetter->storeAs(config('attachments.path'), 'motivationLetter.pdf', 'public');
         Mail::to($applyRequest->get('companyMail'))
@@ -141,7 +158,10 @@ class OfferController extends Controller
 
     public function addWish(Request $request) 
     {
-        if (!Auth::user()->right->SFx27) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx27)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         DB::table('offer_user')->insert([
             'status' => 0,
             'offer_id' => $request->get('id'),
@@ -152,10 +172,18 @@ class OfferController extends Controller
 
     public function removeWish(Request $request) 
     {
-        if (!Auth::user()->right->SFx28) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
-        DB::table('offer_user')->where('user_id', Auth::user()->id)->where('offer_id', $request->get('id'))->where('status', 'W')->delete();
+        if (!Auth::user()->right->SFx28)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
+        DB::table('offer_user')
+            ->where('user_id', Auth::user()->id)
+            ->where('offer_id', $request->get('id'))
+            ->where('status', 'W')
+            ->delete();
         return redirect()->route('offers.wishlist')->with('info', __('Offer has been removed from your wish-list'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -163,9 +191,13 @@ class OfferController extends Controller
      */
     public function create()
     {
-        if (!Auth::user()->right->SFx9) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx9)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         return view('offers/create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -179,6 +211,7 @@ class OfferController extends Controller
         $offer->promotions()->attach($offerRequest->promos);
         return redirect()->route('offers.index')->with('info', __('The offer has been created'));
     }
+
     /**
      * Display the specified resource.
      *
@@ -187,9 +220,13 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
-        if (!Auth::user()->right->SFx12) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx12)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         return view('offers/show', compact('offer'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -198,9 +235,13 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
-        if (!Auth::user()->right->SFx10) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx10)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         return view('offers/edit', compact('offer'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -215,6 +256,7 @@ class OfferController extends Controller
         $offer->promotions()->sync($offerRequest->promos);
         return redirect()->route('offers.index')->with('info', __('The offer have been modified'));
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -223,7 +265,10 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer)
     {
-        if (!Auth::user()->right->SFx11) {return redirect()->route('offers.index')->with('info', __('You cannot do that !'));}
+        if (!Auth::user()->right->SFx11)
+        {
+            return redirect()->route('offers.index')->with('info', __('You cannot do that !'));
+        }
         $offer->forceDelete();
         return back()->with('info', __('The offer have been deleted'));
     }
